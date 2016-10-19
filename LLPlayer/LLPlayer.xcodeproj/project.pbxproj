@@ -13,6 +13,19 @@
 		694F9CC71DB7B2B6008D3AA0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 694F9CC51DB7B2B6008D3AA0 /* Main.storyboard */; };
 		694F9CC91DB7B2B6008D3AA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 694F9CC81DB7B2B6008D3AA0 /* Assets.xcassets */; };
 		694F9CCC1DB7B2B6008D3AA0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 694F9CCA1DB7B2B6008D3AA0 /* LaunchScreen.storyboard */; };
+		69A92FBF1DB7B466006907B8 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FB51DB7B466006907B8 /* libavcodec.a */; };
+		69A92FC01DB7B466006907B8 /* libavdevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FB61DB7B466006907B8 /* libavdevice.a */; };
+		69A92FC11DB7B466006907B8 /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FB71DB7B466006907B8 /* libavfilter.a */; };
+		69A92FC21DB7B466006907B8 /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FB81DB7B466006907B8 /* libavformat.a */; };
+		69A92FC31DB7B466006907B8 /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FB91DB7B466006907B8 /* libavutil.a */; };
+		69A92FC41DB7B466006907B8 /* libfaac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FBA1DB7B466006907B8 /* libfaac.a */; };
+		69A92FC51DB7B466006907B8 /* libpostproc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FBB1DB7B466006907B8 /* libpostproc.a */; };
+		69A92FC61DB7B466006907B8 /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FBC1DB7B466006907B8 /* libswresample.a */; };
+		69A92FC71DB7B466006907B8 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FBD1DB7B466006907B8 /* libswscale.a */; };
+		69A92FC81DB7B466006907B8 /* libx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FBE1DB7B466006907B8 /* libx264.a */; };
+		69A92FCB1DB7B4CF006907B8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FCA1DB7B4CF006907B8 /* libz.tbd */; };
+		69A92FCD1DB7B4E7006907B8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FCC1DB7B4E7006907B8 /* AVFoundation.framework */; };
+		69A92FD01DB7B723006907B8 /* resource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69A92FCF1DB7B723006907B8 /* resource.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +39,19 @@
 		694F9CC81DB7B2B6008D3AA0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		694F9CCB1DB7B2B6008D3AA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		694F9CCD1DB7B2B6008D3AA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		69A92FB51DB7B466006907B8 /* libavcodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavcodec.a; sourceTree = "<group>"; };
+		69A92FB61DB7B466006907B8 /* libavdevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavdevice.a; sourceTree = "<group>"; };
+		69A92FB71DB7B466006907B8 /* libavfilter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavfilter.a; sourceTree = "<group>"; };
+		69A92FB81DB7B466006907B8 /* libavformat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavformat.a; sourceTree = "<group>"; };
+		69A92FB91DB7B466006907B8 /* libavutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavutil.a; sourceTree = "<group>"; };
+		69A92FBA1DB7B466006907B8 /* libfaac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfaac.a; sourceTree = "<group>"; };
+		69A92FBB1DB7B466006907B8 /* libpostproc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpostproc.a; sourceTree = "<group>"; };
+		69A92FBC1DB7B466006907B8 /* libswresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswresample.a; sourceTree = "<group>"; };
+		69A92FBD1DB7B466006907B8 /* libswscale.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswscale.a; sourceTree = "<group>"; };
+		69A92FBE1DB7B466006907B8 /* libx264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libx264.a; sourceTree = "<group>"; };
+		69A92FCA1DB7B4CF006907B8 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		69A92FCC1DB7B4E7006907B8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		69A92FCF1DB7B723006907B8 /* resource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = resource.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +59,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69A92FCD1DB7B4E7006907B8 /* AVFoundation.framework in Frameworks */,
+				69A92FCB1DB7B4CF006907B8 /* libz.tbd in Frameworks */,
+				69A92FC61DB7B466006907B8 /* libswresample.a in Frameworks */,
+				69A92FC31DB7B466006907B8 /* libavutil.a in Frameworks */,
+				69A92FC51DB7B466006907B8 /* libpostproc.a in Frameworks */,
+				69A92FC11DB7B466006907B8 /* libavfilter.a in Frameworks */,
+				69A92FC41DB7B466006907B8 /* libfaac.a in Frameworks */,
+				69A92FC01DB7B466006907B8 /* libavdevice.a in Frameworks */,
+				69A92FC71DB7B466006907B8 /* libswscale.a in Frameworks */,
+				69A92FC81DB7B466006907B8 /* libx264.a in Frameworks */,
+				69A92FBF1DB7B466006907B8 /* libavcodec.a in Frameworks */,
+				69A92FC21DB7B466006907B8 /* libavformat.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +96,8 @@
 		694F9CBB1DB7B2B6008D3AA0 /* LLPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				69A92FCE1DB7B705006907B8 /* Resouce */,
+				69A92FB31DB7B438006907B8 /* vendor */,
 				694F9CBF1DB7B2B6008D3AA0 /* AppDelegate.h */,
 				694F9CC01DB7B2B6008D3AA0 /* AppDelegate.m */,
 				694F9CC21DB7B2B6008D3AA0 /* ViewController.h */,
@@ -74,9 +114,52 @@
 		694F9CBC1DB7B2B6008D3AA0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				69A92FC91DB7B4B5006907B8 /* Frameworks */,
 				694F9CBD1DB7B2B6008D3AA0 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		69A92FB31DB7B438006907B8 /* vendor */ = {
+			isa = PBXGroup;
+			children = (
+				69A92FB41DB7B44A006907B8 /* ffmpeg */,
+			);
+			path = vendor;
+			sourceTree = "<group>";
+		};
+		69A92FB41DB7B44A006907B8 /* ffmpeg */ = {
+			isa = PBXGroup;
+			children = (
+				69A92FB51DB7B466006907B8 /* libavcodec.a */,
+				69A92FB61DB7B466006907B8 /* libavdevice.a */,
+				69A92FB71DB7B466006907B8 /* libavfilter.a */,
+				69A92FB81DB7B466006907B8 /* libavformat.a */,
+				69A92FB91DB7B466006907B8 /* libavutil.a */,
+				69A92FBA1DB7B466006907B8 /* libfaac.a */,
+				69A92FBB1DB7B466006907B8 /* libpostproc.a */,
+				69A92FBC1DB7B466006907B8 /* libswresample.a */,
+				69A92FBD1DB7B466006907B8 /* libswscale.a */,
+				69A92FBE1DB7B466006907B8 /* libx264.a */,
+			);
+			path = ffmpeg;
+			sourceTree = "<group>";
+		};
+		69A92FC91DB7B4B5006907B8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				69A92FCC1DB7B4E7006907B8 /* AVFoundation.framework */,
+				69A92FCA1DB7B4CF006907B8 /* libz.tbd */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		69A92FCE1DB7B705006907B8 /* Resouce */ = {
+			isa = PBXGroup;
+			children = (
+				69A92FCF1DB7B723006907B8 /* resource.bundle */,
+			);
+			path = Resouce;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -105,6 +188,7 @@
 		694F9CB11DB7B2B6008D3AA0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = LL;
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = luolei;
 				TargetAttributes = {
@@ -140,6 +224,7 @@
 				694F9CCC1DB7B2B6008D3AA0 /* LaunchScreen.storyboard in Resources */,
 				694F9CC91DB7B2B6008D3AA0 /* Assets.xcassets in Resources */,
 				694F9CC71DB7B2B6008D3AA0 /* Main.storyboard in Resources */,
+				69A92FD01DB7B723006907B8 /* resource.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,8 +351,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
+				HEADER_SEARCH_PATHS = (
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/include",
+				);
 				INFOPLIST_FILE = LLPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LLPlayer/vendor/ffmpeg",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.luolei.LLPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -277,8 +371,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
+				HEADER_SEARCH_PATHS = (
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/include",
+				);
 				INFOPLIST_FILE = LLPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LLPlayer/vendor/ffmpeg",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.luolei.LLPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -303,6 +406,7 @@
 				694F9CD21DB7B2B6008D3AA0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
