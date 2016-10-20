@@ -11,6 +11,7 @@
 #include <libavutil/mathematics.h>
 #include <libavutil/time.h>
 #include <libswscale/swscale.h>
+#include "SDL.h"
 
 @interface ViewController ()
 
@@ -27,6 +28,14 @@
     int y_size;
     int ret,got_picture;
     struct SwsContext *img_convert_ctx;
+    
+    //SDL
+    int screen_w,screen_h;
+    SDL_Surface *screen;
+//    SDL_VideoInfo *vi;
+//    SDL_Overlay *bmp;
+    SDL_Texture *texture;
+    SDL_Rect rect;
 }
 
 - (void)viewDidLoad {
@@ -91,11 +100,26 @@
     //init Frame
     pFrame = av_frame_alloc();
     pFrameYUV = av_frame_alloc();
+        //分配输出内存空间
+//    out_buffer = (uint8_t *)av_malloc(avpicture_get_size(PIX_FMT_YUV420P, pCodecCtx->width, pCodecCtx->height));
+//    avpicture_fill((AVPicture *)pFrameYUV, out_buffer, PIX_FMT_YUV420P, pCodecCtx->width, pCodecCtx->height);//分配内存空间
     
-    /*
-    //分配输出内存空间
-    out_buffer = (uint8_t *)av_malloc(avpicture_get_size(PIX_FMT_YUV420P, pCodecCtx->width, pCodecCtx->height));
-    avpicture_fill((AVPicture *)pFrameYUV, out_buffer, PIX_FMT_YUV420P, pCodecCtx->width, pCodecCtx->height);//分配内存空间
+    //SDL----------------------------
+    if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)) {
+        printf( "Could not initialize SDL - %s\n", SDL_GetError());
+        return ;
+    }
+    
+    screen_w = pCodecCtx->width;
+    screen_h = pCodecCtx->height;
+//    screen = SDL_SetVideoMode(screen_w, screen_h, 0,0);
+//    if(!screen) {
+//        printf("SDL: could not set video mode - exiting:%s\n",SDL_GetError());
+//        return;
+//    }
+    
+//     bmp = SDL_CreateYUVOverlay(pCodecCtx->width, pCodecCtx->height,SDL_YV12_OVERLAY, screen);
+//    texture = SDL_CreateTexture(<#SDL_Renderer *renderer#>, <#Uint32 format#>, <#int access#>, <#int w#>, <#int h#>)
     packet = (AVPacket *)av_malloc(sizeof(AVPacket));//
     
     //Output Info-----------------------------
@@ -103,7 +127,7 @@
     av_dump_format(pformatCtx, 0, [input_nsstr UTF8String], 0);
     printf("-------------------------------------------------\n");
     img_convert_ctx = sws_getContext(pCodecCtx->width, pCodecCtx->height, pCodecCtx->pix_fmt,
-                                     pCodecCtx->width, pCodecCtx->height, PIX_FMT_YUV420P, SWS_BICUBIC, NULL, NULL, NULL);//转码的信息*/
+                                     pCodecCtx->width, pCodecCtx->height, PIX_FMT_YUV420P, SWS_BICUBIC, NULL, NULL, NULL);//转码的信息
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
