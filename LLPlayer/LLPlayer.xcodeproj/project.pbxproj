@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04F590C91DB886FF000E500D /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590C61DB886ED000E500D /* libSDL2.a */; };
 		04F590CC1DB88749000E500D /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590CB1DB88749000E500D /* GameController.framework */; };
 		04F590CE1DB88753000E500D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590CD1DB88753000E500D /* CoreMotion.framework */; };
 		04F590D01DB8875F000E500D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590CF1DB8875F000E500D /* CoreAudio.framework */; };
@@ -36,19 +35,27 @@
 		69A92FCB1DB7B4CF006907B8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FCA1DB7B4CF006907B8 /* libz.tbd */; };
 		69A92FCD1DB7B4E7006907B8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FCC1DB7B4E7006907B8 /* AVFoundation.framework */; };
 		69A92FD01DB7B723006907B8 /* resource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69A92FCF1DB7B723006907B8 /* resource.bundle */; };
+		69D854B81DB925310085737D /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D854B31DB9251B0085737D /* libSDL2.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		04F590C51DB886ED000E500D /* PBXContainerItemProxy */ = {
+		69D854B21DB9251B0085737D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 04F590C01DB886ED000E500D /* SDL.xcodeproj */;
+			containerPortal = 69D854AC1DB9251A0085737D /* SDL.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = FD6526630DE8FCCB002AD96B;
 			remoteInfo = libSDL;
 		};
-		04F590C71DB886F9000E500D /* PBXContainerItemProxy */ = {
+		69D854B41DB9251B0085737D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 04F590C01DB886ED000E500D /* SDL.xcodeproj */;
+			containerPortal = 69D854AC1DB9251A0085737D /* SDL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 006E982211955059001DE610;
+			remoteInfo = testsdl;
+		};
+		69D854B61DB925280085737D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 69D854AC1DB9251A0085737D /* SDL.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = FD6526620DE8FCCB002AD96B;
 			remoteInfo = libSDL;
@@ -56,7 +63,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		04F590C01DB886ED000E500D /* SDL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL.xcodeproj; path = "../../../../../../SDL2-2.0.4/Xcode-iOS/SDL/SDL.xcodeproj"; sourceTree = "<group>"; };
 		04F590CB1DB88749000E500D /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
 		04F590CD1DB88753000E500D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		04F590CF1DB8875F000E500D /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
@@ -89,6 +95,7 @@
 		69A92FCA1DB7B4CF006907B8 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		69A92FCC1DB7B4E7006907B8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		69A92FCF1DB7B723006907B8 /* resource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = resource.bundle; sourceTree = "<group>"; };
+		69D854AC1DB9251A0085737D /* SDL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL.xcodeproj; path = "../../../../../SDL_history/SDL-2.0.0-6713/Xcode-iOS/SDL/SDL.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69D854B81DB925310085737D /* libSDL2.a in Frameworks */,
 				04F590DC1DB8878B000E500D /* QuartzCore.framework in Frameworks */,
 				04F590DA1DB88784000E500D /* OpenGLES.framework in Frameworks */,
 				04F590D81DB88779000E500D /* CoreGraphics.framework in Frameworks */,
@@ -105,7 +113,6 @@
 				04F590D01DB8875F000E500D /* CoreAudio.framework in Frameworks */,
 				04F590CE1DB88753000E500D /* CoreMotion.framework in Frameworks */,
 				04F590CC1DB88749000E500D /* GameController.framework in Frameworks */,
-				04F590C91DB886FF000E500D /* libSDL2.a in Frameworks */,
 				69A92FCD1DB7B4E7006907B8 /* AVFoundation.framework in Frameworks */,
 				69A92FCB1DB7B4CF006907B8 /* libz.tbd in Frameworks */,
 				69A92FC61DB7B466006907B8 /* libswresample.a in Frameworks */,
@@ -127,17 +134,9 @@
 		04F590B81DB886BE000E500D /* SDL */ = {
 			isa = PBXGroup;
 			children = (
-				04F590C01DB886ED000E500D /* SDL.xcodeproj */,
+				69D854AC1DB9251A0085737D /* SDL.xcodeproj */,
 			);
 			path = SDL;
-			sourceTree = "<group>";
-		};
-		04F590C11DB886ED000E500D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				04F590C61DB886ED000E500D /* libSDL2.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		694F9CB01DB7B2B6008D3AA0 = {
@@ -235,6 +234,15 @@
 			path = Resouce;
 			sourceTree = "<group>";
 		};
+		69D854AD1DB9251A0085737D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				69D854B31DB9251B0085737D /* libSDL2.a */,
+				69D854B51DB9251B0085737D /* testsdl.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -249,7 +257,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				04F590C81DB886F9000E500D /* PBXTargetDependency */,
+				69D854B71DB925280085737D /* PBXTargetDependency */,
 			);
 			name = LLPlayer;
 			productName = LLPlayer;
@@ -285,8 +293,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 04F590C11DB886ED000E500D /* Products */;
-					ProjectRef = 04F590C01DB886ED000E500D /* SDL.xcodeproj */;
+					ProductGroup = 69D854AD1DB9251A0085737D /* Products */;
+					ProjectRef = 69D854AC1DB9251A0085737D /* SDL.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -297,11 +305,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		04F590C61DB886ED000E500D /* libSDL2.a */ = {
+		69D854B31DB9251B0085737D /* libSDL2.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libSDL2.a;
-			remoteRef = 04F590C51DB886ED000E500D /* PBXContainerItemProxy */;
+			remoteRef = 69D854B21DB9251B0085737D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		69D854B51DB9251B0085737D /* testsdl.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = testsdl.app;
+			remoteRef = 69D854B41DB9251B0085737D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -334,10 +349,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		04F590C81DB886F9000E500D /* PBXTargetDependency */ = {
+		69D854B71DB925280085737D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = libSDL;
-			targetProxy = 04F590C71DB886F9000E500D /* PBXContainerItemProxy */;
+			targetProxy = 69D854B61DB925280085737D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -454,6 +469,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(PROJECT_DIR)/include",
 					"$(PROJECT_DIR)/LLPlayer/vendor/SDL/include",
+					"\"$(SRCROOT)/LLPlayer/vendor/SDL/include\"",
 				);
 				INFOPLIST_FILE = LLPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -476,6 +492,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(PROJECT_DIR)/include",
 					"$(PROJECT_DIR)/LLPlayer/vendor/SDL/include",
+					"\"$(SRCROOT)/LLPlayer/vendor/SDL/include\"",
 				);
 				INFOPLIST_FILE = LLPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

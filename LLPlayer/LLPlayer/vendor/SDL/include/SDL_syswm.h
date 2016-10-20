@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2012 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -21,7 +21,7 @@
 
 /**
  *  \file SDL_syswm.h
- *
+ *  
  *  Include file for SDL custom system window manager hooks.
  */
 
@@ -36,12 +36,14 @@
 #include "begin_code.h"
 /* Set up for C function definitions, even when using C++ */
 #ifdef __cplusplus
+/* *INDENT-OFF* */
 extern "C" {
+/* *INDENT-ON* */
 #endif
 
 /**
  *  \file SDL_syswm.h
- *
+ *  
  *  Your application has access to a special type of event ::SDL_SYSWMEVENT,
  *  which contains window-manager specific information and arrives whenever
  *  an unhandled window event occurs.  This event is ignored by default, but
@@ -52,14 +54,8 @@ struct SDL_SysWMinfo;
 #else
 
 #if defined(SDL_VIDEO_DRIVER_WINDOWS)
-#ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
-#endif
 #include <windows.h>
-#endif
-
-#if defined(SDL_VIDEO_DRIVER_WINRT)
-#include <Inspectable.h>
 #endif
 
 /* This is the structure for custom window manager events */
@@ -85,7 +81,7 @@ struct SDL_SysWMinfo;
 
 #if defined(SDL_VIDEO_DRIVER_COCOA)
 #ifdef __OBJC__
-@class NSWindow;
+#include <Cocoa/Cocoa.h>
 #else
 typedef struct _NSWindow NSWindow;
 #endif
@@ -96,17 +92,10 @@ typedef struct _NSWindow NSWindow;
 #include <UIKit/UIKit.h>
 #else
 typedef struct _UIWindow UIWindow;
-typedef struct _UIViewController UIViewController;
 #endif
-typedef Uint32 GLuint;
 #endif
 
-#if defined(SDL_VIDEO_DRIVER_ANDROID)
-typedef struct ANativeWindow ANativeWindow;
-typedef void *EGLSurface;
-#endif
-
-/**
+/** 
  *  These are the various supported windowing subsystems
  */
 typedef enum
@@ -117,10 +106,6 @@ typedef enum
     SDL_SYSWM_DIRECTFB,
     SDL_SYSWM_COCOA,
     SDL_SYSWM_UIKIT,
-    SDL_SYSWM_WAYLAND,
-    SDL_SYSWM_MIR,
-    SDL_SYSWM_WINRT,
-    SDL_SYSWM_ANDROID
 } SDL_SYSWM_TYPE;
 
 /**
@@ -153,17 +138,12 @@ struct SDL_SysWMmsg
 #if defined(SDL_VIDEO_DRIVER_COCOA)
         struct
         {
-            /* Latest version of Xcode clang complains about empty structs in C v. C++:
-                 error: empty struct has size 0 in C, size 1 in C++
-             */
-            int dummy;
             /* No Cocoa window events yet */
         } cocoa;
 #endif
 #if defined(SDL_VIDEO_DRIVER_UIKIT)
         struct
         {
-            int dummy;
             /* No UIKit window events yet */
         } uikit;
 #endif
@@ -188,14 +168,7 @@ struct SDL_SysWMinfo
         struct
         {
             HWND window;                /**< The window handle */
-            HDC hdc;                    /**< The window device context */
         } win;
-#endif
-#if defined(SDL_VIDEO_DRIVER_WINRT)
-        struct
-        {
-            IInspectable * window;      /**< The WinRT CoreWindow */
-        } winrt;
 #endif
 #if defined(SDL_VIDEO_DRIVER_X11)
         struct
@@ -215,50 +188,15 @@ struct SDL_SysWMinfo
 #if defined(SDL_VIDEO_DRIVER_COCOA)
         struct
         {
-#if defined(__OBJC__) && defined(__has_feature) && __has_feature(objc_arc)
-            NSWindow __unsafe_unretained *window; /* The Cocoa window */
-#else
-            NSWindow *window;                     /* The Cocoa window */
-#endif
+            NSWindow *window;           /* The Cocoa window */
         } cocoa;
 #endif
 #if defined(SDL_VIDEO_DRIVER_UIKIT)
         struct
         {
-#if defined(__OBJC__) && defined(__has_feature) && __has_feature(objc_arc)
-            UIWindow __unsafe_unretained *window; /* The UIKit window */
-#else
-            UIWindow *window;                     /* The UIKit window */
-#endif
-            GLuint framebuffer; /* The GL view's Framebuffer Object. It must be bound when rendering to the screen using GL. */
-            GLuint colorbuffer; /* The GL view's color Renderbuffer Object. It must be bound when SDL_GL_SwapWindow is called. */
-            GLuint resolveFramebuffer; /* The Framebuffer Object which holds the resolve color Renderbuffer, when MSAA is used. */
+            UIWindow *window;           /* The UIKit window */
         } uikit;
 #endif
-#if defined(SDL_VIDEO_DRIVER_WAYLAND)
-        struct
-        {
-            struct wl_display *display;            /**< Wayland display */
-            struct wl_surface *surface;            /**< Wayland surface */
-            struct wl_shell_surface *shell_surface; /**< Wayland shell_surface (window manager handle) */
-        } wl;
-#endif
-#if defined(SDL_VIDEO_DRIVER_MIR)
-        struct
-        {
-            struct MirConnection *connection;  /**< Mir display server connection */
-            struct MirSurface *surface;  /**< Mir surface */
-        } mir;
-#endif
-
-#if defined(SDL_VIDEO_DRIVER_ANDROID)
-        struct
-        {
-            ANativeWindow *window;
-            EGLSurface surface;
-        } android;
-#endif
-
         /* Can't have an empty union */
         int dummy;
     } info;
@@ -271,19 +209,19 @@ typedef struct SDL_SysWMinfo SDL_SysWMinfo;
 /* Function prototypes */
 /**
  *  \brief This function allows access to driver-dependent window information.
- *
+ *  
  *  \param window The window about which information is being requested
- *  \param info This structure must be initialized with the SDL version, and is
+ *  \param info This structure must be initialized with the SDL version, and is 
  *              then filled in with information about the given window.
- *
- *  \return SDL_TRUE if the function is implemented and the version member of
+ *  
+ *  \return SDL_TRUE if the function is implemented and the version member of 
  *          the \c info struct is valid, SDL_FALSE otherwise.
- *
+ *  
  *  You typically use this function like this:
  *  \code
  *  SDL_SysWMinfo info;
  *  SDL_VERSION(&info.version);
- *  if ( SDL_GetWindowWMInfo(window, &info) ) { ... }
+ *  if ( SDL_GetWindowWMInfo(&info) ) { ... }
  *  \endcode
  */
 extern DECLSPEC SDL_bool SDLCALL SDL_GetWindowWMInfo(SDL_Window * window,
@@ -292,7 +230,9 @@ extern DECLSPEC SDL_bool SDLCALL SDL_GetWindowWMInfo(SDL_Window * window,
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
+/* *INDENT-OFF* */
 }
+/* *INDENT-ON* */
 #endif
 #include "close_code.h"
 

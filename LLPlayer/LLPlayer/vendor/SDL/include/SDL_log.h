@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2012 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -21,7 +21,7 @@
 
 /**
  *  \file SDL_log.h
- *
+ *  
  *  Simple log messages with categories and priorities.
  *
  *  By default logs are quiet, but if you're debugging SDL you might want:
@@ -42,7 +42,9 @@
 #include "begin_code.h"
 /* Set up for C function definitions, even when using C++ */
 #ifdef __cplusplus
+/* *INDENT-OFF* */
 extern "C" {
+/* *INDENT-ON* */
 #endif
 
 
@@ -57,9 +59,8 @@ extern "C" {
  *  \brief The predefined log categories
  *
  *  By default the application category is enabled at the INFO level,
- *  the assert category is enabled at the WARN level, test is enabled
- *  at the VERBOSE level and all other categories are enabled at the
- *  CRITICAL level.
+ *  the assert category is enabled at the WARN level, and all other
+ *  categories are enabled at the CRITICAL level.
  */
 enum
 {
@@ -71,7 +72,6 @@ enum
     SDL_LOG_CATEGORY_VIDEO,
     SDL_LOG_CATEGORY_RENDER,
     SDL_LOG_CATEGORY_INPUT,
-    SDL_LOG_CATEGORY_TEST,
 
     /* Reserved for future SDL library use */
     SDL_LOG_CATEGORY_RESERVED1,
@@ -137,44 +137,44 @@ extern DECLSPEC void SDLCALL SDL_LogResetPriorities(void);
 /**
  *  \brief Log a message with SDL_LOG_CATEGORY_APPLICATION and SDL_LOG_PRIORITY_INFO
  */
-extern DECLSPEC void SDLCALL SDL_Log(SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(1);
+extern DECLSPEC void SDLCALL SDL_Log(const char *fmt, ...);
 
 /**
  *  \brief Log a message with SDL_LOG_PRIORITY_VERBOSE
  */
-extern DECLSPEC void SDLCALL SDL_LogVerbose(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
+extern DECLSPEC void SDLCALL SDL_LogVerbose(int category, const char *fmt, ...);
 
 /**
  *  \brief Log a message with SDL_LOG_PRIORITY_DEBUG
  */
-extern DECLSPEC void SDLCALL SDL_LogDebug(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
+extern DECLSPEC void SDLCALL SDL_LogDebug(int category, const char *fmt, ...);
 
 /**
  *  \brief Log a message with SDL_LOG_PRIORITY_INFO
  */
-extern DECLSPEC void SDLCALL SDL_LogInfo(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
+extern DECLSPEC void SDLCALL SDL_LogInfo(int category, const char *fmt, ...);
 
 /**
  *  \brief Log a message with SDL_LOG_PRIORITY_WARN
  */
-extern DECLSPEC void SDLCALL SDL_LogWarn(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
+extern DECLSPEC void SDLCALL SDL_LogWarn(int category, const char *fmt, ...);
 
 /**
  *  \brief Log a message with SDL_LOG_PRIORITY_ERROR
  */
-extern DECLSPEC void SDLCALL SDL_LogError(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
+extern DECLSPEC void SDLCALL SDL_LogError(int category, const char *fmt, ...);
 
 /**
  *  \brief Log a message with SDL_LOG_PRIORITY_CRITICAL
  */
-extern DECLSPEC void SDLCALL SDL_LogCritical(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
+extern DECLSPEC void SDLCALL SDL_LogCritical(int category, const char *fmt, ...);
 
 /**
  *  \brief Log a message with the specified category and priority.
  */
 extern DECLSPEC void SDLCALL SDL_LogMessage(int category,
                                             SDL_LogPriority priority,
-                                            SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(3);
+                                            const char *fmt, ...);
 
 /**
  *  \brief Log a message with the specified category and priority.
@@ -202,7 +202,9 @@ extern DECLSPEC void SDLCALL SDL_LogSetOutputFunction(SDL_LogOutputFunction call
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
+/* *INDENT-OFF* */
 }
+/* *INDENT-ON* */
 #endif
 #include "close_code.h"
 

@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2012 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -28,7 +28,9 @@
 #include "begin_code.h"
 /* Set up for C function definitions, even when using C++ */
 #ifdef __cplusplus
+/* *INDENT-OFF* */
 extern "C" {
+/* *INDENT-ON* */
 #endif
 
 /**
@@ -56,7 +58,7 @@ typedef enum
 typedef struct
 {
     Uint32 flags;       /**< ::SDL_MessageBoxButtonFlags */
-    int buttonid;       /**< User defined button id (value returned via SDL_ShowMessageBox) */
+    int buttonid;       /**< User defined button id (value returned via SDL_MessageBox) */
     const char * text;  /**< The UTF-8 button text */
 } SDL_MessageBoxButtonData;
 
@@ -105,8 +107,7 @@ typedef struct
 /**
  *  \brief Create a modal message box.
  *
- *  \param messageboxdata The SDL_MessageBoxData structure with title, text, etc.
- *  \param buttonid The pointer to which user id of hit button should be copied.
+ *  \param messagebox The SDL_MessageBox structure with title, text, etc.
  *
  *  \return -1 on error, otherwise 0 and buttonid contains user id of button
  *          hit or -1 if dialog was closed.
@@ -135,7 +136,9 @@ extern DECLSPEC int SDLCALL SDL_ShowSimpleMessageBox(Uint32 flags, const char *t
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
+/* *INDENT-OFF* */
 }
+/* *INDENT-ON* */
 #endif
 #include "close_code.h"
 
