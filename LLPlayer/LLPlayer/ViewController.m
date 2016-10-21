@@ -12,6 +12,9 @@
 #include <libavutil/time.h>
 #include <libswscale/swscale.h>
 #include "SDL.h"
+#include <stdio.h>
+#include <time.h>
+//#import <SystemConfiguration/SystemConfiguration.h>
 
 //Output YUV420P data as a file
 #define OUTPUT_YUV420P 0
@@ -24,6 +27,11 @@ fatalError(const char *string)
 {
     printf("%s: %s\n", string, SDL_GetError());
 //    exit(1);
+}
+int
+randomInt(int min, int max)
+{
+    return min + rand() % (max - min + 1);
 }
 @implementation ViewController{
     AVFormatContext *pformatCtx;
@@ -50,11 +58,13 @@ fatalError(const char *string)
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self getFrameYUV];
+    //SDL显示一个矩形
+//    [self createRectangle];
 }
 
 -(void)getFrameYUV
 {
-    NSString *input_str= [NSString stringWithFormat:@"resource.bundle/%@",@"sintel.h264"];
+    NSString *input_str= [NSString stringWithFormat:@"resource.bundle/%@",@"war3end.mp4"];//war3end.mp4  sintel.h264
     NSString *input_nsstr=[[[NSBundle mainBundle]resourcePath] stringByAppendingPathComponent:input_str];
     //init ffmpeg
     av_register_all();
@@ -109,11 +119,11 @@ fatalError(const char *string)
     pFrame = av_frame_alloc();
     pFrameYUV = av_frame_alloc();
         //分配输出内存空间
-//    out_buffer = (uint8_t *)av_malloc(avpicture_get_size(PIX_FMT_YUV420P, pCodecCtx->width, pCodecCtx->height));
-//    avpicture_fill((AVPicture *)pFrameYUV, out_buffer, PIX_FMT_YUV420P, pCodecCtx->width, pCodecCtx->height);//分配内存空间
-    out_buffer=(unsigned char *)av_malloc(av_image_get_buffer_size(AV_PIX_FMT_YUV420P,  pCodecCtx->width, pCodecCtx->height,1));
-    av_image_fill_arrays(pFrameYUV->data, pFrameYUV->linesize,out_buffer,
-                         AV_PIX_FMT_YUV420P,pCodecCtx->width, pCodecCtx->height,1);
+    out_buffer = (uint8_t *)av_malloc(avpicture_get_size(PIX_FMT_YUV420P, pCodecCtx->width, pCodecCtx->height));
+    avpicture_fill((AVPicture *)pFrameYUV, out_buffer, PIX_FMT_YUV420P, pCodecCtx->width, pCodecCtx->height);//分配内存空间
+//    out_buffer=(unsigned char *)av_malloc(av_image_get_buffer_size(AV_PIX_FMT_YUV420P,  pCodecCtx->width, pCodecCtx->height,1));
+//    av_image_fill_arrays(pFrameYUV->data, pFrameYUV->linesize,out_buffer,
+//                         AV_PIX_FMT_YUV420P,pCodecCtx->width, pCodecCtx->height,1);
     packet = (AVPacket *)av_malloc(sizeof(AVPacket));//
     //Output Info-----------------------------
     printf("--------------- File Information ----------------\n");
@@ -121,9 +131,12 @@ fatalError(const char *string)
     printf("-------------------------------------------------\n");
     img_convert_ctx = sws_getContext(pCodecCtx->width, pCodecCtx->height, pCodecCtx->pix_fmt,
                                      pCodecCtx->width, pCodecCtx->height, PIX_FMT_YUV420P, SWS_BICUBIC, NULL, NULL, NULL);//转码的信息
-
+#if OUTPUT_YUV420P
+    fp_yuv=fopen("output.yuv","wb+");
+#endif
     
     //SDL----------------------------
+    SDL_SetMainReady();//使用官网的需要先执行这句 不然初始化不成功
     if(SDL_Init(SDL_INIT_VIDEO)< 0) {
         printf( "Could not initialize SDL - %s\n", SDL_GetError());
         return ;
@@ -151,17 +164,20 @@ fatalError(const char *string)
     sdlRect.y=0;
     sdlRect.w=screen_w;
     sdlRect.h=screen_h;
+    printf("screenw:%d screenh:%d\n",screen_w,screen_h);
     
     //SDL End----------------------
-    
+    //frame 转包
     while(av_read_frame(pformatCtx, packet)>=0){
         if(packet->stream_index==videoIndex){
+            //获取一桢 frmae
             ret = avcodec_decode_video2(pCodecCtx, pFrame, &got_picture, packet);
             if(ret < 0){
                 printf("Decode Error.\n");
                 return;
             }
             if(got_picture){
+                //转码一桢数据 转为YUV
                 sws_scale(img_convert_ctx, (const unsigned char* const*)pFrame->data, pFrame->linesize, 0, pCodecCtx->height,
                           pFrameYUV->data, pFrameYUV->linesize);
                 
@@ -170,16 +186,20 @@ fatalError(const char *string)
                 fwrite(pFrameYUV->data[0],1,y_size,fp_yuv);    //Y
                 fwrite(pFrameYUV->data[1],1,y_size/4,fp_yuv);  //U
                 fwrite(pFrameYUV->data[2],1,y_size/4,fp_yuv);  //V
+                printf("output a YUV Frame data to file.\n");
 #endif
                 //SDL---------------------------
                 
-#if 1
+#if 0
                 SDL_UpdateTexture( sdlTexture, NULL, pFrameYUV->data[0], pFrameYUV->linesize[0] );
 #else
-                SDL_UpdateTextureYUV(sdlTexture, &sdlRect,
+                //添加到纹理
+                SDL_UpdateYUVTexture(sdlTexture, &sdlRect,
                                      pFrameYUV->data[0], pFrameYUV->linesize[0],
                                      pFrameYUV->data[1], pFrameYUV->linesize[1],
                                      pFrameYUV->data[2], pFrameYUV->linesize[2]);
+                printf("update a fameYUV.\n");
+                
 #endif
                 
                 SDL_RenderClear( sdlRenderer );
@@ -225,15 +245,80 @@ fatalError(const char *string)
     fclose(fp_yuv);
 #endif
     
-    SDL_Quit();
-    
-    av_frame_free(&pFrameYUV);
-    av_frame_free(&pFrame);
-    avcodec_close(pCodecCtx);
-    avformat_close_input(&pformatCtx);
+//    SDL_Quit();
+//    
+//    av_frame_free(&pFrameYUV);
+//    av_frame_free(&pFrame);
+//    avcodec_close(pCodecCtx);
+//    avformat_close_input(&pformatCtx);
     
     
 }
+
+void render(SDL_Renderer *renderer)
+{
+    
+    Uint8 r, g, b;
+    
+    /* Clear the screen */
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+    
+    /*  Come up with a random rectangle */
+    SDL_Rect rect;
+    rect.w = 200;
+    rect.h = 190;
+    rect.x = 20;
+    rect.y = 40;
+    
+    /* Come up with a random color */
+    r = randomInt(50, 255);
+    g = randomInt(50, 255);
+    b = randomInt(50, 255);
+    SDL_SetRenderDrawColor(renderer, r, g, b, 255);//设置渲染器的颜色
+    
+    /*  Fill the rectangle in the color */
+    SDL_RenderFillRect(renderer, &rect);//在渲染区域渲染颜色
+    
+    /* update screen */
+    SDL_RenderPresent(renderer);
+}
+-(void)createRectangle
+{
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+    
+    /* initialize SDL */
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        printf("Could not initialize SDL\n");
+        return;
+    }
+    
+    /* seed random number generator */
+    srand(time(NULL));
+    
+    /* create window and renderer */
+    window =
+    SDL_CreateWindow(NULL, 0, 0, 400, 400,
+                     SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+    if (!window) {
+        printf("Could not initialize Window\n");
+        return ;
+    }
+    
+    renderer = SDL_CreateRenderer(window, -1, 0);
+    if (!renderer) {
+        printf("Could not create renderer\n");
+        return ;
+    }
+    
+    render(renderer);
+    SDL_Delay(1);
+    /* shutdown SDL */
+//    SDL_Quit();
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
