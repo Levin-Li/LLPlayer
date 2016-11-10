@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040C379C1DD1CF7D00B7E2BA /* OpenglView.m in Sources */ = {isa = PBXBuildFile; fileRef = 040C379B1DD1CF7D00B7E2BA /* OpenglView.m */; };
+		041EF82E1DD4737A008F3651 /* LLSDLPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041EF82D1DD4737A008F3651 /* LLSDLPlayViewController.m */; };
+		043665E01DBB83A10043BC23 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 043665DB1DBB838D0043BC23 /* libSDL2.a */; };
 		04F590CC1DB88749000E500D /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590CB1DB88749000E500D /* GameController.framework */; };
 		04F590CE1DB88753000E500D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590CD1DB88753000E500D /* CoreMotion.framework */; };
 		04F590D01DB8875F000E500D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590CF1DB8875F000E500D /* CoreAudio.framework */; };
@@ -35,27 +38,26 @@
 		69A92FCB1DB7B4CF006907B8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FCA1DB7B4CF006907B8 /* libz.tbd */; };
 		69A92FCD1DB7B4E7006907B8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FCC1DB7B4E7006907B8 /* AVFoundation.framework */; };
 		69A92FD01DB7B723006907B8 /* resource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69A92FCF1DB7B723006907B8 /* resource.bundle */; };
-		69D95C441DB9C243007E100F /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D95C3F1DB9C227007E100F /* libSDL2.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		69D95C3E1DB9C227007E100F /* PBXContainerItemProxy */ = {
+		043665DA1DBB838D0043BC23 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 69D95C381DB9C227007E100F /* SDL.xcodeproj */;
+			containerPortal = 043665D41DBB838D0043BC23 /* SDL.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = FD6526630DE8FCCB002AD96B;
 			remoteInfo = libSDL;
 		};
-		69D95C401DB9C227007E100F /* PBXContainerItemProxy */ = {
+		043665DC1DBB838D0043BC23 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 69D95C381DB9C227007E100F /* SDL.xcodeproj */;
+			containerPortal = 043665D41DBB838D0043BC23 /* SDL.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = FAB598141BB5C1B100BE72C5;
 			remoteInfo = "libSDL-tv";
 		};
-		69D95C421DB9C234007E100F /* PBXContainerItemProxy */ = {
+		043665DE1DBB83970043BC23 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 69D95C381DB9C227007E100F /* SDL.xcodeproj */;
+			containerPortal = 043665D41DBB838D0043BC23 /* SDL.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = FD6526620DE8FCCB002AD96B;
 			remoteInfo = libSDL;
@@ -63,6 +65,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		040C379A1DD1CF7D00B7E2BA /* OpenglView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenglView.h; sourceTree = "<group>"; };
+		040C379B1DD1CF7D00B7E2BA /* OpenglView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenglView.m; sourceTree = "<group>"; };
+		041EF82C1DD4737A008F3651 /* LLSDLPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLSDLPlayViewController.h; sourceTree = "<group>"; };
+		041EF82D1DD4737A008F3651 /* LLSDLPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLSDLPlayViewController.m; sourceTree = "<group>"; };
+		043665D41DBB838D0043BC23 /* SDL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL.xcodeproj; path = "../../../../../../SDL2-2.0.5/Xcode-iOS/SDL/SDL.xcodeproj"; sourceTree = "<group>"; };
 		04F590CB1DB88749000E500D /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
 		04F590CD1DB88753000E500D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		04F590CF1DB8875F000E500D /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
@@ -95,7 +102,6 @@
 		69A92FCA1DB7B4CF006907B8 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		69A92FCC1DB7B4E7006907B8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		69A92FCF1DB7B723006907B8 /* resource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = resource.bundle; sourceTree = "<group>"; };
-		69D95C381DB9C227007E100F /* SDL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL.xcodeproj; path = "../../../../../SDL_history/SDL2-2.0.5/Xcode-iOS/SDL/SDL.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69D95C441DB9C243007E100F /* libSDL2.a in Frameworks */,
+				043665E01DBB83A10043BC23 /* libSDL2.a in Frameworks */,
 				04F590DC1DB8878B000E500D /* QuartzCore.framework in Frameworks */,
 				04F590DA1DB88784000E500D /* OpenGLES.framework in Frameworks */,
 				04F590D81DB88779000E500D /* CoreGraphics.framework in Frameworks */,
@@ -131,10 +137,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		040C37991DD1CF7D00B7E2BA /* OpenGLView */ = {
+			isa = PBXGroup;
+			children = (
+				040C379A1DD1CF7D00B7E2BA /* OpenglView.h */,
+				040C379B1DD1CF7D00B7E2BA /* OpenglView.m */,
+			);
+			path = OpenGLView;
+			sourceTree = "<group>";
+		};
+		043665D51DBB838D0043BC23 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				043665DB1DBB838D0043BC23 /* libSDL2.a */,
+				043665DD1DBB838D0043BC23 /* libSDL2.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		04F590B81DB886BE000E500D /* SDL */ = {
 			isa = PBXGroup;
 			children = (
-				69D95C381DB9C227007E100F /* SDL.xcodeproj */,
+				043665D41DBB838D0043BC23 /* SDL.xcodeproj */,
 			);
 			path = SDL;
 			sourceTree = "<group>";
@@ -158,12 +182,15 @@
 		694F9CBB1DB7B2B6008D3AA0 /* LLPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				040C37991DD1CF7D00B7E2BA /* OpenGLView */,
 				69A92FCE1DB7B705006907B8 /* Resouce */,
 				69A92FB31DB7B438006907B8 /* vendor */,
 				694F9CBF1DB7B2B6008D3AA0 /* AppDelegate.h */,
 				694F9CC01DB7B2B6008D3AA0 /* AppDelegate.m */,
 				694F9CC21DB7B2B6008D3AA0 /* ViewController.h */,
 				694F9CC31DB7B2B6008D3AA0 /* ViewController.m */,
+				041EF82C1DD4737A008F3651 /* LLSDLPlayViewController.h */,
+				041EF82D1DD4737A008F3651 /* LLSDLPlayViewController.m */,
 				694F9CC51DB7B2B6008D3AA0 /* Main.storyboard */,
 				694F9CC81DB7B2B6008D3AA0 /* Assets.xcassets */,
 				694F9CCA1DB7B2B6008D3AA0 /* LaunchScreen.storyboard */,
@@ -234,15 +261,6 @@
 			path = Resouce;
 			sourceTree = "<group>";
 		};
-		69D95C391DB9C227007E100F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				69D95C3F1DB9C227007E100F /* libSDL2.a */,
-				69D95C411DB9C227007E100F /* libSDL2.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -257,7 +275,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				69D95C431DB9C234007E100F /* PBXTargetDependency */,
+				043665DF1DBB83970043BC23 /* PBXTargetDependency */,
 			);
 			name = LLPlayer;
 			productName = LLPlayer;
@@ -276,7 +294,7 @@
 				TargetAttributes = {
 					694F9CB81DB7B2B6008D3AA0 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = B3H9Q653C5;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -293,8 +311,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 69D95C391DB9C227007E100F /* Products */;
-					ProjectRef = 69D95C381DB9C227007E100F /* SDL.xcodeproj */;
+					ProductGroup = 043665D51DBB838D0043BC23 /* Products */;
+					ProjectRef = 043665D41DBB838D0043BC23 /* SDL.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -305,18 +323,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		69D95C3F1DB9C227007E100F /* libSDL2.a */ = {
+		043665DB1DBB838D0043BC23 /* libSDL2.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libSDL2.a;
-			remoteRef = 69D95C3E1DB9C227007E100F /* PBXContainerItemProxy */;
+			remoteRef = 043665DA1DBB838D0043BC23 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		69D95C411DB9C227007E100F /* libSDL2.a */ = {
+		043665DD1DBB838D0043BC23 /* libSDL2.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libSDL2.a;
-			remoteRef = 69D95C401DB9C227007E100F /* PBXContainerItemProxy */;
+			remoteRef = 043665DC1DBB838D0043BC23 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -342,17 +360,19 @@
 			files = (
 				694F9CC41DB7B2B6008D3AA0 /* ViewController.m in Sources */,
 				694F9CC11DB7B2B6008D3AA0 /* AppDelegate.m in Sources */,
+				041EF82E1DD4737A008F3651 /* LLSDLPlayViewController.m in Sources */,
 				694F9CBE1DB7B2B6008D3AA0 /* main.m in Sources */,
+				040C379C1DD1CF7D00B7E2BA /* OpenglView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		69D95C431DB9C234007E100F /* PBXTargetDependency */ = {
+		043665DF1DBB83970043BC23 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = libSDL;
-			targetProxy = 69D95C421DB9C234007E100F /* PBXContainerItemProxy */;
+			targetProxy = 043665DE1DBB83970043BC23 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -464,6 +484,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ruisheng Zhang (925H4CR3SK)";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -478,8 +500,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LLPlayer/vendor/ffmpeg",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.luolei.LLPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.damitv.LLPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f0205021-29fd-473c-9ec9-9526ce8eb817";
 			};
 			name = Debug;
 		};
@@ -487,6 +510,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ruisheng Zhang (925H4CR3SK)";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -501,8 +526,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LLPlayer/vendor/ffmpeg",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.luolei.LLPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.damitv.LLPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f0205021-29fd-473c-9ec9-9526ce8eb817";
 			};
 			name = Release;
 		};
