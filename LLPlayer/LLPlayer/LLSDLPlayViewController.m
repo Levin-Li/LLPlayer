@@ -139,6 +139,11 @@ int refresh_video(void *opaque){
     SDL_Quit();
 }
 
+-(void)audioPlay
+{
+    
+}
+
 /*
  #pragma mark - Navigation
  
