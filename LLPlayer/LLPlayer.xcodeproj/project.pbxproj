@@ -10,6 +10,7 @@
 		040C379C1DD1CF7D00B7E2BA /* OpenglView.m in Sources */ = {isa = PBXBuildFile; fileRef = 040C379B1DD1CF7D00B7E2BA /* OpenglView.m */; };
 		041EF82E1DD4737A008F3651 /* LLSDLPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041EF82D1DD4737A008F3651 /* LLSDLPlayViewController.m */; };
 		043665E01DBB83A10043BC23 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 043665DB1DBB838D0043BC23 /* libSDL2.a */; };
+		044835831DF80CD900C535B6 /* OpenGLView20.mm in Sources */ = {isa = PBXBuildFile; fileRef = 044835821DF80CD900C535B6 /* OpenGLView20.mm */; };
 		04F590CC1DB88749000E500D /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590CB1DB88749000E500D /* GameController.framework */; };
 		04F590CE1DB88753000E500D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590CD1DB88753000E500D /* CoreMotion.framework */; };
 		04F590D01DB8875F000E500D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590CF1DB8875F000E500D /* CoreAudio.framework */; };
@@ -70,6 +71,8 @@
 		041EF82C1DD4737A008F3651 /* LLSDLPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLSDLPlayViewController.h; sourceTree = "<group>"; };
 		041EF82D1DD4737A008F3651 /* LLSDLPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLSDLPlayViewController.m; sourceTree = "<group>"; };
 		043665D41DBB838D0043BC23 /* SDL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL.xcodeproj; path = "../../../../../../SDL2-2.0.5/Xcode-iOS/SDL/SDL.xcodeproj"; sourceTree = "<group>"; };
+		044835811DF80CD900C535B6 /* OpenGLView20.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLView20.h; sourceTree = "<group>"; };
+		044835821DF80CD900C535B6 /* OpenGLView20.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenGLView20.mm; sourceTree = "<group>"; };
 		04F590CB1DB88749000E500D /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
 		04F590CD1DB88753000E500D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		04F590CF1DB8875F000E500D /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
@@ -140,6 +143,7 @@
 		040C37991DD1CF7D00B7E2BA /* OpenGLView */ = {
 			isa = PBXGroup;
 			children = (
+				044835801DF80CD900C535B6 /* OpenGLView20 */,
 				040C379A1DD1CF7D00B7E2BA /* OpenglView.h */,
 				040C379B1DD1CF7D00B7E2BA /* OpenglView.m */,
 			);
@@ -153,6 +157,15 @@
 				043665DD1DBB838D0043BC23 /* libSDL2.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		044835801DF80CD900C535B6 /* OpenGLView20 */ = {
+			isa = PBXGroup;
+			children = (
+				044835811DF80CD900C535B6 /* OpenGLView20.h */,
+				044835821DF80CD900C535B6 /* OpenGLView20.mm */,
+			);
+			path = OpenGLView20;
 			sourceTree = "<group>";
 		};
 		04F590B81DB886BE000E500D /* SDL */ = {
@@ -359,6 +372,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				694F9CC41DB7B2B6008D3AA0 /* ViewController.m in Sources */,
+				044835831DF80CD900C535B6 /* OpenGLView20.mm in Sources */,
 				694F9CC11DB7B2B6008D3AA0 /* AppDelegate.m in Sources */,
 				041EF82E1DD4737A008F3651 /* LLSDLPlayViewController.m in Sources */,
 				694F9CBE1DB7B2B6008D3AA0 /* main.m in Sources */,
