@@ -9,9 +9,11 @@
 /* Begin PBXBuildFile section */
 		040C379C1DD1CF7D00B7E2BA /* OpenglView.m in Sources */ = {isa = PBXBuildFile; fileRef = 040C379B1DD1CF7D00B7E2BA /* OpenglView.m */; };
 		041EF82E1DD4737A008F3651 /* LLSDLPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041EF82D1DD4737A008F3651 /* LLSDLPlayViewController.m */; };
+		041FEA071E03DEFB00854E51 /* LLAuidoPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041FEA061E03DEFB00854E51 /* LLAuidoPlayViewController.m */; };
 		043665E01DBB83A10043BC23 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 043665DB1DBB838D0043BC23 /* libSDL2.a */; };
 		044835831DF80CD900C535B6 /* OpenGLView20.mm in Sources */ = {isa = PBXBuildFile; fileRef = 044835821DF80CD900C535B6 /* OpenGLView20.mm */; };
 		044835891DF8189D00C535B6 /* LLAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 044835881DF8189D00C535B6 /* LLAudioManager.m */; };
+		04A0C9171E038756004493D2 /* LLAudioPcm.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A0C9161E038756004493D2 /* LLAudioPcm.m */; };
 		04F590CC1DB88749000E500D /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590CB1DB88749000E500D /* GameController.framework */; };
 		04F590CE1DB88753000E500D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590CD1DB88753000E500D /* CoreMotion.framework */; };
 		04F590D01DB8875F000E500D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590CF1DB8875F000E500D /* CoreAudio.framework */; };
@@ -71,11 +73,15 @@
 		040C379B1DD1CF7D00B7E2BA /* OpenglView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenglView.m; sourceTree = "<group>"; };
 		041EF82C1DD4737A008F3651 /* LLSDLPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLSDLPlayViewController.h; sourceTree = "<group>"; };
 		041EF82D1DD4737A008F3651 /* LLSDLPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLSDLPlayViewController.m; sourceTree = "<group>"; };
+		041FEA051E03DEFB00854E51 /* LLAuidoPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLAuidoPlayViewController.h; sourceTree = "<group>"; };
+		041FEA061E03DEFB00854E51 /* LLAuidoPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLAuidoPlayViewController.m; sourceTree = "<group>"; };
 		043665D41DBB838D0043BC23 /* SDL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL.xcodeproj; path = "../../../../../../SDL2-2.0.5/Xcode-iOS/SDL/SDL.xcodeproj"; sourceTree = "<group>"; };
 		044835811DF80CD900C535B6 /* OpenGLView20.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLView20.h; sourceTree = "<group>"; };
 		044835821DF80CD900C535B6 /* OpenGLView20.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenGLView20.mm; sourceTree = "<group>"; };
 		044835871DF8189D00C535B6 /* LLAudioManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLAudioManager.h; sourceTree = "<group>"; };
 		044835881DF8189D00C535B6 /* LLAudioManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLAudioManager.m; sourceTree = "<group>"; };
+		04A0C9151E038756004493D2 /* LLAudioPcm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLAudioPcm.h; sourceTree = "<group>"; };
+		04A0C9161E038756004493D2 /* LLAudioPcm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLAudioPcm.m; sourceTree = "<group>"; };
 		04F590CB1DB88749000E500D /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
 		04F590CD1DB88753000E500D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		04F590CF1DB8875F000E500D /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
@@ -177,6 +183,8 @@
 			children = (
 				044835871DF8189D00C535B6 /* LLAudioManager.h */,
 				044835881DF8189D00C535B6 /* LLAudioManager.m */,
+				04A0C9151E038756004493D2 /* LLAudioPcm.h */,
+				04A0C9161E038756004493D2 /* LLAudioPcm.m */,
 			);
 			path = audio;
 			sourceTree = "<group>";
@@ -217,6 +225,8 @@
 				694F9CC31DB7B2B6008D3AA0 /* ViewController.m */,
 				041EF82C1DD4737A008F3651 /* LLSDLPlayViewController.h */,
 				041EF82D1DD4737A008F3651 /* LLSDLPlayViewController.m */,
+				041FEA051E03DEFB00854E51 /* LLAuidoPlayViewController.h */,
+				041FEA061E03DEFB00854E51 /* LLAuidoPlayViewController.m */,
 				694F9CC51DB7B2B6008D3AA0 /* Main.storyboard */,
 				694F9CC81DB7B2B6008D3AA0 /* Assets.xcassets */,
 				694F9CCA1DB7B2B6008D3AA0 /* LaunchScreen.storyboard */,
@@ -385,6 +395,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				694F9CC41DB7B2B6008D3AA0 /* ViewController.m in Sources */,
+				041FEA071E03DEFB00854E51 /* LLAuidoPlayViewController.m in Sources */,
+				04A0C9171E038756004493D2 /* LLAudioPcm.m in Sources */,
 				044835831DF80CD900C535B6 /* OpenGLView20.mm in Sources */,
 				694F9CC11DB7B2B6008D3AA0 /* AppDelegate.m in Sources */,
 				041EF82E1DD4737A008F3651 /* LLSDLPlayViewController.m in Sources */,

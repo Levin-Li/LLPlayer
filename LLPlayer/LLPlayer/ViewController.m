@@ -17,6 +17,7 @@
 #include <time.h>
 #import "OpenglView.h"
 #import "LLSDLPlayViewController.h"
+#import "LLAudioPcm.h"
 //#import <SystemConfiguration/SystemConfiguration.h>
 
 //Output YUV420P data as a file
@@ -120,6 +121,10 @@ int sfp_refresh_audio_thread(void *opaque){
     //GLView
 //    OpenglView *_glView;
 //    int thread_exit;
+    
+    //
+    LLAudioPcm *_audioPcm;
+    
 }
 
 - (void)viewDidLoad {
@@ -166,13 +171,13 @@ int sfp_refresh_audio_thread(void *opaque){
     for (int i= 0; i<pformatCtx->nb_streams; i++) {
         if (pformatCtx->streams[i]->codec->codec_type == AVMEDIA_TYPE_VIDEO) {
             videoIndex = i;
-            printf("find video stream\n");
-            break;
+            printf("find video stream %d\n",i);
+//            break;
         }
         if(pformatCtx->streams[i]->codec->codec_type==AVMEDIA_TYPE_AUDIO){
             audioIndex=i;
-            printf("find audio stream\n");
-            break;
+            printf("find audio stream %d\n",i);
+//            break;
         }
     }
     
@@ -202,6 +207,10 @@ int sfp_refresh_audio_thread(void *opaque){
     }
     if(audioCodec==NULL){
         printf("Codec not found.\n");
+        return;
+    }
+    if (audioCodecCtx==NULL) {
+        printf("audioCodec not found.\n");
         return;
     }
     // Open codec
@@ -266,8 +275,8 @@ int sfp_refresh_audio_thread(void *opaque){
     //SDL End----------------------
     
     //***开始音频播放
-    [self audioPlay];
-    
+//    [self audioPlay];
+    [self audioPcmPlay];
     //***开始视频播放
     [self videoPlay];
    
@@ -352,7 +361,7 @@ void  fill_audio(void *udata,Uint8 *stream,int len){
 
 -(void)audioPlay
 {
-   
+    
     
     audioPacket=(AVPacket *)av_malloc(sizeof(AVPacket));
     av_init_packet(audioPacket);
@@ -370,6 +379,7 @@ void  fill_audio(void *udata,Uint8 *stream,int len){
     audioOut_buffer=(uint8_t *)av_malloc(MAX_AUDIO_FRAME_SIZE*2);
     audioFrame=av_frame_alloc();
     
+    
     //SDL
     wanted_spec.freq = out_sample_rate;
     wanted_spec.format = AUDIO_S16SYS;
@@ -377,7 +387,7 @@ void  fill_audio(void *udata,Uint8 *stream,int len){
     wanted_spec.silence = 0;
     wanted_spec.samples = out_nb_samples;
     wanted_spec.callback = fill_audio;
-    wanted_spec.userdata = pCodecCtx;
+    wanted_spec.userdata = audioCodecCtx;
     if (SDL_OpenAudio(&wanted_spec, NULL)<0){
         printf("can't open audio.\n");
         return ;
@@ -437,6 +447,91 @@ void  fill_audio(void *udata,Uint8 *stream,int len){
     av_free(audioOut_buffer);
     avcodec_close(audioCodecCtx);
 //    avformat_close_input(&pformatCtx);
+}
+
+-(void)audioPcmPlay
+{
+    _audioPcm = [[LLAudioPcm alloc]init];
+    
+    
+    audioPacket=(AVPacket *)av_malloc(sizeof(AVPacket));
+    av_init_packet(audioPacket);
+    
+    //Out Audio Param
+    uint64_t out_channel_layout=AV_CH_LAYOUT_STEREO;
+    //nb_samples: AAC-1024 MP3-1152
+    int out_nb_samples=audioCodecCtx->frame_size;
+    enum AVSampleFormat out_sample_fmt=AV_SAMPLE_FMT_S16;
+    int out_sample_rate=44100;
+    int out_channels=av_get_channel_layout_nb_channels(out_channel_layout);
+    //Out Buffer Size
+    int out_buffer_size=av_samples_get_buffer_size(NULL,out_channels ,out_nb_samples,out_sample_fmt, 1);
+    
+    audioOut_buffer=(uint8_t *)av_malloc(MAX_AUDIO_FRAME_SIZE*2);
+    audioFrame=av_frame_alloc();
+    
+    
+    AudioStreamBasicDescription audioFormat;
+    audioFormat.mSampleRate = out_sample_rate;
+    audioFormat.mChannelsPerFrame = out_channels;
+    audioFormat.mFormatID = kAudioFormatLinearPCM;
+    audioFormat.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
+    audioFormat.mBitsPerChannel = 16;
+    int ByteN = audioFormat.mBytesPerFrame = (audioFormat.mBitsPerChannel / 8) * audioFormat.mChannelsPerFrame;
+    audioFormat.mBytesPerPacket = audioFormat.mBytesPerFrame = (audioFormat.mBitsPerChannel / 8) * audioFormat.mChannelsPerFrame;
+    audioFormat.mFramesPerPacket = 1;
+    NSLog(@"out_sample_rate=%d out_channels=%d out_buffer_size=%d ByteN=%d",out_sample_rate,out_channels,out_buffer_size,ByteN);
+    NSLog(@"channels=%d nb_samples=%d sample_fmt=%d",audioCodecCtx->channels,audioFrame->nb_samples,audioCodecCtx->sample_fmt);
+    
+//    [_audioPcm registAudio:audioFormat];
+    
+    //FIX:Some Codec's Context Information is missing
+//    in_channel_layout=av_get_default_channel_layout(audioCodecCtx->channels);
+//    
+//    //Swr
+//    au_convert_ctx = swr_alloc();
+//    au_convert_ctx=swr_alloc_set_opts(au_convert_ctx,out_channel_layout, out_sample_fmt, out_sample_rate,
+//                                      in_channel_layout,audioCodecCtx->sample_fmt , audioCodecCtx->sample_rate,0, NULL);
+//    swr_init(au_convert_ctx);
+    
+    audioTag = 0;
+    audioGot_picture = 0;
+    for (;;) {
+        
+        if (av_read_frame(pformatCtx, audioPacket) >=0) {
+            if (audioPacket->stream_index == audioIndex) {
+                audioRet = avcodec_decode_audio4(audioCodecCtx, audioFrame, &audioGot_picture, audioPacket);
+                if (ret < 0) {
+                    printf("Error in decoding audio frame.\n");
+                    return;
+                }
+                if (audioGot_picture > 0) {
+//                    swr_convert(au_convert_ctx, &audioOut_buffer, MAX_AUDIO_FRAME_SIZE, (const uint8_t **)audioFrame->data, audioFrame->nb_samples);
+                    
+                    //音频重采样
+                    const int buffSize = av_samples_get_buffer_size(NULL,
+                                                                    audioCodecCtx->channels,
+                                                                    audioFrame->nb_samples,
+                                                                    audioCodecCtx->sample_fmt,
+                                                                    1);
+                    
+                    printf("index:%5d\t pts:%lld\t packet size:%d\n",audioTag,packet->pts,packet->size);
+                    NSData *pcmdata = [NSData dataWithBytes:&audioOut_buffer length:MAX_AUDIO_FRAME_SIZE];
+                    [_audioPcm.receiveData addObject:pcmdata];
+                    audioTag ++;
+                    
+                }else{
+                    NSLog(@"not get audio!!!");
+                }
+                
+                
+               
+            }
+            av_free_packet(audioPacket);
+        }
+        sleep(0.2);
+    }
+    
 }
 
 
