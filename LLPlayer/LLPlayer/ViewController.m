@@ -17,9 +17,11 @@
 #include <time.h>
 #import "OpenglView.h"
 #import "LLSDLPlayViewController.h"
-#import "LLAudioPcm.h"
+#import "LLAudioOutPutQueue.h"
 //#import <SystemConfiguration/SystemConfiguration.h>
 
+//Output PCM
+#define OUTPUT_PCM 1
 //Output YUV420P data as a file
 #define OUTPUT_YUV420P 0
 //音频
@@ -30,12 +32,8 @@
 
 //Refresh Event
 #define SFM_REFRESH_EVENT  (SDL_USEREVENT + 1)
-
 #define SFM_BREAK_EVENT  (SDL_USEREVENT + 2)
 
-//音频
-#define SFM_AudioRefresh_event (SDL_USEREVENT + 3)
-#define SFM_AudioBreak_event (SDL_USEREVENT + 4)
 int thread_exit1 =0;
 int audio_thread_exit1 = 0;
 //视频线程
@@ -55,36 +53,7 @@ int sfp_refresh_thread(void *opaque){
     
     return 0;
 }
-//音频线程
-int sfp_refresh_audio_thread(void *opaque){
-    audio_thread_exit1=0;
-    while (!audio_thread_exit1) {
-        SDL_Event event;
-        event.type = SFM_AudioRefresh_event;
-        SDL_PushEvent(&event);
-        SDL_Delay(1);
-    }
-    audio_thread_exit1=0;
-    //Break
-    SDL_Event event;
-    event.type = SFM_AudioBreak_event;
-    SDL_PushEvent(&event);
-    
-    return 0;
-}
 
-
-//void
-//fatalError(const char *string)
-//{
-//    printf("%s: %s\n", string, SDL_GetError());
-////    exit(1);
-//}
-//int
-//randomInt(int min, int max)
-//{
-//    return min + rand() % (max - min + 1);
-//}
 @implementation ViewController{
     AVFormatContext *pformatCtx;
     //视频
@@ -118,19 +87,17 @@ int sfp_refresh_audio_thread(void *opaque){
     SDL_AudioSpec wanted_spec;
     struct SwrContext *au_convert_ctx;
     
-    //GLView
-//    OpenglView *_glView;
-//    int thread_exit;
-    
     //
-    LLAudioPcm *_audioPcm;
+    LLAudioOutPutQueue *_audioPcm;
+    
+    FILE *pFile;
     
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.view.backgroundColor = [UIColor redColor];
+//    self.view.backgroundColor = [UIColor redColor];
 //    [self createGLView];
 
    
@@ -141,8 +108,14 @@ int sfp_refresh_audio_thread(void *opaque){
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-     [self getFrameYUV];
+
 }
+
+- (IBAction)videoTest:(id)sender {
+    
+         [self getFrameYUV];
+}
+
 
 -(void)getFrameYUV
 {
@@ -275,8 +248,7 @@ int sfp_refresh_audio_thread(void *opaque){
     //SDL End----------------------
     
     //***开始音频播放
-//    [self audioPlay];
-    [self audioPcmPlay];
+//    [self audioPcmPlay];
     //***开始视频播放
     [self videoPlay];
    
@@ -293,6 +265,7 @@ int sfp_refresh_audio_thread(void *opaque){
         SDL_WaitEvent(&event);
         if (event.type == SFM_REFRESH_EVENT) {
             //---------------------------------
+            
             if(av_read_frame(pformatCtx, packet)>=0){
                 if(packet->stream_index==videoIndex){
                     ret = avcodec_decode_video2(pCodecCtx, pFrame, &got_picture, packet);
@@ -314,6 +287,8 @@ int sfp_refresh_audio_thread(void *opaque){
                         SDL_RenderCopy( sdlRenderer, sdlTexture, NULL, NULL);
                         SDL_RenderPresent( sdlRenderer );
                         //SDL End-----------------------
+                    }else{
+                        NSLog(@"未获取到图片、丢包");
                     }
                 }
                 av_free_packet(packet);
@@ -342,116 +317,12 @@ int sfp_refresh_audio_thread(void *opaque){
     avformat_close_input(&pformatCtx);
 }
 
-#pragma mark 音频
-static  Uint8  *audio_chunk;
-static  Uint32  audio_len;
-static  Uint8  *audio_pos;
-
-void  fill_audio(void *udata,Uint8 *stream,int len){
-    //SDL 2.0
-    SDL_memset(stream, 0, len);
-    if(audio_len==0)		/*  Only  play  if  we  have  data  left  */
-        return;
-    len=(len>audio_len?audio_len:len);	/*  Mix  as  much  data  as  possible  */
-    
-    SDL_MixAudio(stream,audio_pos,len,SDL_MIX_MAXVOLUME);
-    audio_pos += len;
-    audio_len -= len;
-}
-
--(void)audioPlay
-{
-    
-    
-    audioPacket=(AVPacket *)av_malloc(sizeof(AVPacket));
-    av_init_packet(audioPacket);
-    
-    //Out Audio Param
-    uint64_t out_channel_layout=AV_CH_LAYOUT_STEREO;
-    //nb_samples: AAC-1024 MP3-1152
-    int out_nb_samples=audioCodecCtx->frame_size;
-    enum AVSampleFormat out_sample_fmt=AV_SAMPLE_FMT_S16;
-    int out_sample_rate=44100;
-    int out_channels=av_get_channel_layout_nb_channels(out_channel_layout);
-    //Out Buffer Size
-    int out_buffer_size=av_samples_get_buffer_size(NULL,out_channels ,out_nb_samples,out_sample_fmt, 1);
-    
-    audioOut_buffer=(uint8_t *)av_malloc(MAX_AUDIO_FRAME_SIZE*2);
-    audioFrame=av_frame_alloc();
-    
-    
-    //SDL
-    wanted_spec.freq = out_sample_rate;
-    wanted_spec.format = AUDIO_S16SYS;
-    wanted_spec.channels = out_channels;
-    wanted_spec.silence = 0;
-    wanted_spec.samples = out_nb_samples;
-    wanted_spec.callback = fill_audio;
-    wanted_spec.userdata = audioCodecCtx;
-    if (SDL_OpenAudio(&wanted_spec, NULL)<0){
-        printf("can't open audio.\n");
-        return ;
-    }
-    
-    //FIX:Some Codec's Context Information is missing
-    in_channel_layout=av_get_default_channel_layout(audioCodecCtx->channels);
-    
-    //Swr
-    au_convert_ctx = swr_alloc();
-    au_convert_ctx=swr_alloc_set_opts(au_convert_ctx,out_channel_layout, out_sample_fmt, out_sample_rate,
-                                      in_channel_layout,audioCodecCtx->sample_fmt , audioCodecCtx->sample_rate,0, NULL);
-    swr_init(au_convert_ctx);
-    audioTag = 0;
-    //创建音频线程
-    SDL_Thread *audio_tid = SDL_CreateThread(sfp_refresh_audio_thread, NULL, NULL);
-    SDL_Event audioEvent;
-    for (; ;) {
-        SDL_WaitEvent(&audioEvent);
-        if (audioEvent.type == SFM_AudioRefresh_event) {
-            
-        }
-        if (av_read_frame(pformatCtx, audioPacket) >=0) {
-            if (audioPacket->stream_index == audioIndex) {
-                audioRet = avcodec_decode_audio4(audioCodecCtx, audioFrame, &audioGot_picture, audioPacket);
-                if (ret < 0) {
-                    printf("Error in decoding audio frame.\n");
-                    return;
-                }
-                if (audioGot_picture > 0) {
-                    swr_convert(au_convert_ctx, &audioOut_buffer, MAX_AUDIO_FRAME_SIZE, (const uint8_t **)audioFrame->data, audioFrame->nb_samples);
-                    printf("index:%5d\t pts:%lld\t packet size:%d\n",audioTag,packet->pts,packet->size);
-                    audioTag ++;
-                }
-                
-//                while (audio_len >0)
-//                    SDL_Delay(1);
-                    audio_chunk = audioOut_buffer;
-                    audio_len  = out_buffer_size;
-                    audio_pos = audio_chunk;
-                    //Play
-                    SDL_PauseAudio(0);
-            }
-            av_free_packet(audioPacket);
-        }else if (audioEvent.type == SDL_QUIT)
-        {
-            audio_thread_exit1 = 1;
-        }else if (audioEvent.type == SFM_AudioBreak_event)
-        {
-            break;
-        }
-    }
-    
-    swr_free(&au_convert_ctx);
-    SDL_CloseAudio();
-//    SDL_Quit();
-    av_free(audioOut_buffer);
-    avcodec_close(audioCodecCtx);
-//    avformat_close_input(&pformatCtx);
-}
-
 -(void)audioPcmPlay
 {
-    _audioPcm = [[LLAudioPcm alloc]init];
+#if OUTPUT_PCM
+    pFile=fopen("/Users/mac/Desktop/pcmData", "wb");
+#endif
+    _audioPcm = [[LLAudioOutPutQueue alloc]init];
     
     
     audioPacket=(AVPacket *)av_malloc(sizeof(AVPacket));
@@ -483,54 +354,53 @@ void  fill_audio(void *udata,Uint8 *stream,int len){
     NSLog(@"out_sample_rate=%d out_channels=%d out_buffer_size=%d ByteN=%d",out_sample_rate,out_channels,out_buffer_size,ByteN);
     NSLog(@"channels=%d nb_samples=%d sample_fmt=%d",audioCodecCtx->channels,audioFrame->nb_samples,audioCodecCtx->sample_fmt);
     
-//    [_audioPcm registAudio:audioFormat];
+    [_audioPcm registAudio:audioFormat];
     
-    //FIX:Some Codec's Context Information is missing
-//    in_channel_layout=av_get_default_channel_layout(audioCodecCtx->channels);
-//    
-//    //Swr
-//    au_convert_ctx = swr_alloc();
-//    au_convert_ctx=swr_alloc_set_opts(au_convert_ctx,out_channel_layout, out_sample_fmt, out_sample_rate,
-//                                      in_channel_layout,audioCodecCtx->sample_fmt , audioCodecCtx->sample_rate,0, NULL);
-//    swr_init(au_convert_ctx);
+   // FIX:Some Codec's Context Information is missing
+    in_channel_layout=av_get_default_channel_layout(audioCodecCtx->channels);
+    
+    //Swr
+    au_convert_ctx = swr_alloc();
+    au_convert_ctx=swr_alloc_set_opts(au_convert_ctx,out_channel_layout, out_sample_fmt, out_sample_rate,
+                                      in_channel_layout,audioCodecCtx->sample_fmt , audioCodecCtx->sample_rate,0, NULL);
+    swr_init(au_convert_ctx);
     
     audioTag = 0;
     audioGot_picture = 0;
-    for (;;) {
-        
-        if (av_read_frame(pformatCtx, audioPacket) >=0) {
-            if (audioPacket->stream_index == audioIndex) {
-                audioRet = avcodec_decode_audio4(audioCodecCtx, audioFrame, &audioGot_picture, audioPacket);
-                if (ret < 0) {
-                    printf("Error in decoding audio frame.\n");
-                    return;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            while (av_read_frame(pformatCtx, audioPacket) >=0) {
+                if (audioPacket->stream_index == audioIndex) {
+                    audioRet = avcodec_decode_audio4(audioCodecCtx, audioFrame, &audioGot_picture, audioPacket);
+                    if (ret < 0) {
+                        printf("Error in decoding audio frame.\n");
+                        return;
+                    }
+                    if (audioGot_picture > 0) {
+                        swr_convert(au_convert_ctx, &audioOut_buffer, MAX_AUDIO_FRAME_SIZE, (const uint8_t **)audioFrame->data, audioFrame->nb_samples);
+                        
+#if OUTPUT_PCM
+                        //Write PCM
+                        fwrite(out_buffer, 1, out_buffer_size, pFile);
+#endif
+                        
+                        printf("index:%5d\t pts:%lld\t packet size:%d\n",audioTag,audioPacket->pts,audioPacket->size);
+                        NSData *pcmdata = [NSData dataWithBytes:audioOut_buffer length:out_buffer_size];
+                        [_audioPcm.receiveData addObject:pcmdata];
+                        audioTag ++;
+                        
+                    }else{
+                        NSLog(@"not get audio!!!");
+                    }
                 }
-                if (audioGot_picture > 0) {
-//                    swr_convert(au_convert_ctx, &audioOut_buffer, MAX_AUDIO_FRAME_SIZE, (const uint8_t **)audioFrame->data, audioFrame->nb_samples);
-                    
-                    //音频重采样
-                    const int buffSize = av_samples_get_buffer_size(NULL,
-                                                                    audioCodecCtx->channels,
-                                                                    audioFrame->nb_samples,
-                                                                    audioCodecCtx->sample_fmt,
-                                                                    1);
-                    
-                    printf("index:%5d\t pts:%lld\t packet size:%d\n",audioTag,packet->pts,packet->size);
-                    NSData *pcmdata = [NSData dataWithBytes:&audioOut_buffer length:MAX_AUDIO_FRAME_SIZE];
-                    [_audioPcm.receiveData addObject:pcmdata];
-                    audioTag ++;
-                    
-                }else{
-                    NSLog(@"not get audio!!!");
-                }
-                
-                
-               
             }
-            av_free_packet(audioPacket);
-        }
-        sleep(0.2);
-    }
+            
+        av_free_packet(audioPacket);
+        swr_free(&au_convert_ctx);
+#if OUTPUT_PCM
+        fclose(pFile);
+#endif
+    });
+    
     
 }
 
