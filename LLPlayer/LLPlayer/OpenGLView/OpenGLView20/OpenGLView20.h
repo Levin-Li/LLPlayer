@@ -13,13 +13,13 @@
 #import <OpenGLES/EAGL.h>
 #include <sys/time.h>
 
-extern "C"
-{
+//extern "c"
+//{
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
 //#include "pixfmt.h"
-}
+//}
 
 
 

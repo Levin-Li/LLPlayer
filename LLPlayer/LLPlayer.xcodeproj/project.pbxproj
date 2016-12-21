@@ -10,6 +10,8 @@
 		040C379C1DD1CF7D00B7E2BA /* OpenglView.m in Sources */ = {isa = PBXBuildFile; fileRef = 040C379B1DD1CF7D00B7E2BA /* OpenglView.m */; };
 		041EF82E1DD4737A008F3651 /* LLSDLPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041EF82D1DD4737A008F3651 /* LLSDLPlayViewController.m */; };
 		041FEA071E03DEFB00854E51 /* LLAuidoPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041FEA061E03DEFB00854E51 /* LLAuidoPlayViewController.m */; };
+		042F6C231E0A5A50005FBE18 /* KxMovieGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042F6C221E0A5A50005FBE18 /* KxMovieGLView.m */; };
+		042F6C2B1E0A5F71005FBE18 /* LLDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 042F6C2A1E0A5F71005FBE18 /* LLDecoder.m */; };
 		043665E01DBB83A10043BC23 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 043665DB1DBB838D0043BC23 /* libSDL2.a */; };
 		044835831DF80CD900C535B6 /* OpenGLView20.mm in Sources */ = {isa = PBXBuildFile; fileRef = 044835821DF80CD900C535B6 /* OpenGLView20.mm */; };
 		044835891DF8189D00C535B6 /* LLAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 044835881DF8189D00C535B6 /* LLAudioManager.m */; };
@@ -75,6 +77,10 @@
 		041EF82D1DD4737A008F3651 /* LLSDLPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLSDLPlayViewController.m; sourceTree = "<group>"; };
 		041FEA051E03DEFB00854E51 /* LLAuidoPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLAuidoPlayViewController.h; sourceTree = "<group>"; };
 		041FEA061E03DEFB00854E51 /* LLAuidoPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLAuidoPlayViewController.m; sourceTree = "<group>"; };
+		042F6C211E0A5A50005FBE18 /* KxMovieGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxMovieGLView.h; sourceTree = "<group>"; };
+		042F6C221E0A5A50005FBE18 /* KxMovieGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KxMovieGLView.m; sourceTree = "<group>"; };
+		042F6C291E0A5F71005FBE18 /* LLDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLDecoder.h; sourceTree = "<group>"; };
+		042F6C2A1E0A5F71005FBE18 /* LLDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLDecoder.m; sourceTree = "<group>"; };
 		043665D41DBB838D0043BC23 /* SDL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL.xcodeproj; path = "../../../../../../SDL2-2.0.5/Xcode-iOS/SDL/SDL.xcodeproj"; sourceTree = "<group>"; };
 		044835811DF80CD900C535B6 /* OpenGLView20.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLView20.h; sourceTree = "<group>"; };
 		044835821DF80CD900C535B6 /* OpenGLView20.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenGLView20.mm; sourceTree = "<group>"; };
@@ -152,12 +158,23 @@
 		040C37991DD1CF7D00B7E2BA /* OpenGLView */ = {
 			isa = PBXGroup;
 			children = (
+				042F6C211E0A5A50005FBE18 /* KxMovieGLView.h */,
+				042F6C221E0A5A50005FBE18 /* KxMovieGLView.m */,
 				044835861DF8187A00C535B6 /* audio */,
 				044835801DF80CD900C535B6 /* OpenGLView20 */,
 				040C379A1DD1CF7D00B7E2BA /* OpenglView.h */,
 				040C379B1DD1CF7D00B7E2BA /* OpenglView.m */,
 			);
 			path = OpenGLView;
+			sourceTree = "<group>";
+		};
+		042F6C281E0A5F5D005FBE18 /* Decoder */ = {
+			isa = PBXGroup;
+			children = (
+				042F6C291E0A5F71005FBE18 /* LLDecoder.h */,
+				042F6C2A1E0A5F71005FBE18 /* LLDecoder.m */,
+			);
+			path = Decoder;
 			sourceTree = "<group>";
 		};
 		043665D51DBB838D0043BC23 /* Products */ = {
@@ -216,6 +233,7 @@
 		694F9CBB1DB7B2B6008D3AA0 /* LLPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				042F6C281E0A5F5D005FBE18 /* Decoder */,
 				040C37991DD1CF7D00B7E2BA /* OpenGLView */,
 				69A92FCE1DB7B705006907B8 /* Resouce */,
 				69A92FB31DB7B438006907B8 /* vendor */,
@@ -397,12 +415,14 @@
 				694F9CC41DB7B2B6008D3AA0 /* ViewController.m in Sources */,
 				041FEA071E03DEFB00854E51 /* LLAuidoPlayViewController.m in Sources */,
 				04882A341E0782E200F59EDC /* LLAudioOutPutQueue.m in Sources */,
+				042F6C231E0A5A50005FBE18 /* KxMovieGLView.m in Sources */,
 				044835831DF80CD900C535B6 /* OpenGLView20.mm in Sources */,
 				694F9CC11DB7B2B6008D3AA0 /* AppDelegate.m in Sources */,
 				041EF82E1DD4737A008F3651 /* LLSDLPlayViewController.m in Sources */,
 				694F9CBE1DB7B2B6008D3AA0 /* main.m in Sources */,
 				044835891DF8189D00C535B6 /* LLAudioManager.m in Sources */,
 				040C379C1DD1CF7D00B7E2BA /* OpenglView.m in Sources */,
+				042F6C2B1E0A5F71005FBE18 /* LLDecoder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

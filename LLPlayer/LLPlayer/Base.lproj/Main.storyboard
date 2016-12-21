@@ -98,7 +98,20 @@
                     <view key="view" contentMode="scaleToFill" id="pnW-bd-fJQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cua-Nr-esV">
+                                <rect key="frame" x="72" y="97" width="65" height="30"/>
+                                <state key="normal" title="start paly"/>
+                                <connections>
+                                    <action selector="startPlay:" destination="dqx-CA-Vkq" eventType="touchUpInside" id="N0q-da-adc"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Cua-Nr-esV" firstAttribute="top" secondItem="aRQ-pc-yw7" secondAttribute="bottom" constant="77" id="06U-BG-dNF"/>
+                            <constraint firstItem="Cua-Nr-esV" firstAttribute="leading" secondItem="pnW-bd-fJQ" secondAttribute="leadingMargin" constant="56" id="hiT-lC-TEe"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k9K-jl-B3T" userLabel="First Responder" sceneMemberID="firstResponder"/>
