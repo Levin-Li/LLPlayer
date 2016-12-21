@@ -278,6 +278,7 @@ int refresh_video(void *opaque){
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         while (av_read_frame(pformatCtx, packet)>=0){
+            got_picture = 0;
             if(packet->stream_index==videoIndex){
                 ret = avcodec_decode_video2(pCodecCtx, pFrame, &got_picture, packet);
                 if(ret < 0){
@@ -324,6 +325,7 @@ int refresh_video(void *opaque){
                                                              pCodecCtx->height / 2);
                             
                             [_kxglView render:yuvFrame];
+                           
                         }else{
                             NSLog(@"yuv frame is null!!!");
                         }
@@ -333,7 +335,7 @@ int refresh_video(void *opaque){
                     NSLog(@"未获取到图片、丢包");
                 }
             }
-            sleep(0.9);
+             [NSThread sleepForTimeInterval:0.005];
         }
         av_free_packet(packet);
         sws_freeContext(img_convert_ctx);
