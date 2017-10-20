@@ -8,11 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		040C379C1DD1CF7D00B7E2BA /* OpenglView.m in Sources */ = {isa = PBXBuildFile; fileRef = 040C379B1DD1CF7D00B7E2BA /* OpenglView.m */; };
-		041EF82E1DD4737A008F3651 /* LLSDLPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041EF82D1DD4737A008F3651 /* LLSDLPlayViewController.m */; };
 		041FEA071E03DEFB00854E51 /* LLAuidoPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041FEA061E03DEFB00854E51 /* LLAuidoPlayViewController.m */; };
-		042F6C231E0A5A50005FBE18 /* KxMovieGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042F6C221E0A5A50005FBE18 /* KxMovieGLView.m */; };
-		042F6C2B1E0A5F71005FBE18 /* LLDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 042F6C2A1E0A5F71005FBE18 /* LLDecoder.m */; };
-		043665E01DBB83A10043BC23 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 043665DB1DBB838D0043BC23 /* libSDL2.a */; };
 		044835831DF80CD900C535B6 /* OpenGLView20.mm in Sources */ = {isa = PBXBuildFile; fileRef = 044835821DF80CD900C535B6 /* OpenGLView20.mm */; };
 		044835891DF8189D00C535B6 /* LLAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 044835881DF8189D00C535B6 /* LLAudioManager.m */; };
 		04882A341E0782E200F59EDC /* LLAudioOutPutQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 04882A331E0782E200F59EDC /* LLAudioOutPutQueue.m */; };
@@ -25,6 +21,7 @@
 		04F590D81DB88779000E500D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590D71DB88779000E500D /* CoreGraphics.framework */; };
 		04F590DA1DB88784000E500D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590D91DB88784000E500D /* OpenGLES.framework */; };
 		04F590DC1DB8878B000E500D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590DB1DB8878B000E500D /* QuartzCore.framework */; };
+		690437031F95A4160000A43F /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 690436FD1F95A3D30000A43F /* libSDL2.a */; };
 		694F9CBE1DB7B2B6008D3AA0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 694F9CBD1DB7B2B6008D3AA0 /* main.m */; };
 		694F9CC11DB7B2B6008D3AA0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 694F9CC01DB7B2B6008D3AA0 /* AppDelegate.m */; };
 		694F9CC41DB7B2B6008D3AA0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 694F9CC31DB7B2B6008D3AA0 /* ViewController.m */; };
@@ -44,26 +41,29 @@
 		69A92FCB1DB7B4CF006907B8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FCA1DB7B4CF006907B8 /* libz.tbd */; };
 		69A92FCD1DB7B4E7006907B8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FCC1DB7B4E7006907B8 /* AVFoundation.framework */; };
 		69A92FD01DB7B723006907B8 /* resource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69A92FCF1DB7B723006907B8 /* resource.bundle */; };
+		69F1E6FA1F983C10005ADBCF /* LLOpenGlShowVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F1E6F91F983C10005ADBCF /* LLOpenGlShowVC.m */; };
+		69F1E6FF1F983EEC005ADBCF /* LLMediaDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F1E6FE1F983EEC005ADBCF /* LLMediaDecoder.m */; };
+		69F1E7021F98903C005ADBCF /* LLMediaGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F1E7011F98903C005ADBCF /* LLMediaGLView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		043665DA1DBB838D0043BC23 /* PBXContainerItemProxy */ = {
+		690436FC1F95A3D30000A43F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 043665D41DBB838D0043BC23 /* SDL.xcodeproj */;
+			containerPortal = 690436F61F95A3D20000A43F /* SDL.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = FD6526630DE8FCCB002AD96B;
 			remoteInfo = libSDL;
 		};
-		043665DC1DBB838D0043BC23 /* PBXContainerItemProxy */ = {
+		690436FE1F95A3D30000A43F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 043665D41DBB838D0043BC23 /* SDL.xcodeproj */;
+			containerPortal = 690436F61F95A3D20000A43F /* SDL.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = FAB598141BB5C1B100BE72C5;
 			remoteInfo = "libSDL-tv";
 		};
-		043665DE1DBB83970043BC23 /* PBXContainerItemProxy */ = {
+		690437001F95A40B0000A43F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 043665D41DBB838D0043BC23 /* SDL.xcodeproj */;
+			containerPortal = 690436F61F95A3D20000A43F /* SDL.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = FD6526620DE8FCCB002AD96B;
 			remoteInfo = libSDL;
@@ -73,15 +73,8 @@
 /* Begin PBXFileReference section */
 		040C379A1DD1CF7D00B7E2BA /* OpenglView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenglView.h; sourceTree = "<group>"; };
 		040C379B1DD1CF7D00B7E2BA /* OpenglView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenglView.m; sourceTree = "<group>"; };
-		041EF82C1DD4737A008F3651 /* LLSDLPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLSDLPlayViewController.h; sourceTree = "<group>"; };
-		041EF82D1DD4737A008F3651 /* LLSDLPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLSDLPlayViewController.m; sourceTree = "<group>"; };
 		041FEA051E03DEFB00854E51 /* LLAuidoPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLAuidoPlayViewController.h; sourceTree = "<group>"; };
 		041FEA061E03DEFB00854E51 /* LLAuidoPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLAuidoPlayViewController.m; sourceTree = "<group>"; };
-		042F6C211E0A5A50005FBE18 /* KxMovieGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxMovieGLView.h; sourceTree = "<group>"; };
-		042F6C221E0A5A50005FBE18 /* KxMovieGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KxMovieGLView.m; sourceTree = "<group>"; };
-		042F6C291E0A5F71005FBE18 /* LLDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLDecoder.h; sourceTree = "<group>"; };
-		042F6C2A1E0A5F71005FBE18 /* LLDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLDecoder.m; sourceTree = "<group>"; };
-		043665D41DBB838D0043BC23 /* SDL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL.xcodeproj; path = "../../../../../../SDL2-2.0.5/Xcode-iOS/SDL/SDL.xcodeproj"; sourceTree = "<group>"; };
 		044835811DF80CD900C535B6 /* OpenGLView20.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLView20.h; sourceTree = "<group>"; };
 		044835821DF80CD900C535B6 /* OpenGLView20.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenGLView20.mm; sourceTree = "<group>"; };
 		044835871DF8189D00C535B6 /* LLAudioManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLAudioManager.h; sourceTree = "<group>"; };
@@ -97,6 +90,7 @@
 		04F590D71DB88779000E500D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		04F590D91DB88784000E500D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		04F590DB1DB8878B000E500D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		690436F61F95A3D20000A43F /* SDL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL.xcodeproj; path = "../../../../../../Resource/SDL2-2.0.5/Xcode-iOS/SDL/SDL.xcodeproj"; sourceTree = "<group>"; };
 		694F9CB91DB7B2B6008D3AA0 /* LLPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LLPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		694F9CBD1DB7B2B6008D3AA0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		694F9CBF1DB7B2B6008D3AA0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -120,6 +114,12 @@
 		69A92FCA1DB7B4CF006907B8 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		69A92FCC1DB7B4E7006907B8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		69A92FCF1DB7B723006907B8 /* resource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = resource.bundle; sourceTree = "<group>"; };
+		69F1E6F81F983C10005ADBCF /* LLOpenGlShowVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLOpenGlShowVC.h; sourceTree = "<group>"; };
+		69F1E6F91F983C10005ADBCF /* LLOpenGlShowVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLOpenGlShowVC.m; sourceTree = "<group>"; };
+		69F1E6FD1F983EEC005ADBCF /* LLMediaDecoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLMediaDecoder.h; sourceTree = "<group>"; };
+		69F1E6FE1F983EEC005ADBCF /* LLMediaDecoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLMediaDecoder.m; sourceTree = "<group>"; };
+		69F1E7001F98903C005ADBCF /* LLMediaGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLMediaGLView.h; sourceTree = "<group>"; };
+		69F1E7011F98903C005ADBCF /* LLMediaGLView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLMediaGLView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,7 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				043665E01DBB83A10043BC23 /* libSDL2.a in Frameworks */,
+				690437031F95A4160000A43F /* libSDL2.a in Frameworks */,
 				04F590DC1DB8878B000E500D /* QuartzCore.framework in Frameworks */,
 				04F590DA1DB88784000E500D /* OpenGLES.framework in Frameworks */,
 				04F590D81DB88779000E500D /* CoreGraphics.framework in Frameworks */,
@@ -158,12 +158,12 @@
 		040C37991DD1CF7D00B7E2BA /* OpenGLView */ = {
 			isa = PBXGroup;
 			children = (
-				042F6C211E0A5A50005FBE18 /* KxMovieGLView.h */,
-				042F6C221E0A5A50005FBE18 /* KxMovieGLView.m */,
 				044835861DF8187A00C535B6 /* audio */,
 				044835801DF80CD900C535B6 /* OpenGLView20 */,
 				040C379A1DD1CF7D00B7E2BA /* OpenglView.h */,
 				040C379B1DD1CF7D00B7E2BA /* OpenglView.m */,
+				69F1E7001F98903C005ADBCF /* LLMediaGLView.h */,
+				69F1E7011F98903C005ADBCF /* LLMediaGLView.m */,
 			);
 			path = OpenGLView;
 			sourceTree = "<group>";
@@ -171,19 +171,10 @@
 		042F6C281E0A5F5D005FBE18 /* Decoder */ = {
 			isa = PBXGroup;
 			children = (
-				042F6C291E0A5F71005FBE18 /* LLDecoder.h */,
-				042F6C2A1E0A5F71005FBE18 /* LLDecoder.m */,
+				69F1E6FD1F983EEC005ADBCF /* LLMediaDecoder.h */,
+				69F1E6FE1F983EEC005ADBCF /* LLMediaDecoder.m */,
 			);
 			path = Decoder;
-			sourceTree = "<group>";
-		};
-		043665D51DBB838D0043BC23 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				043665DB1DBB838D0043BC23 /* libSDL2.a */,
-				043665DD1DBB838D0043BC23 /* libSDL2.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		044835801DF80CD900C535B6 /* OpenGLView20 */ = {
@@ -209,9 +200,25 @@
 		04F590B81DB886BE000E500D /* SDL */ = {
 			isa = PBXGroup;
 			children = (
-				043665D41DBB838D0043BC23 /* SDL.xcodeproj */,
+				690436F61F95A3D20000A43F /* SDL.xcodeproj */,
 			);
 			path = SDL;
+			sourceTree = "<group>";
+		};
+		690436F71F95A3D20000A43F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				690436FD1F95A3D30000A43F /* libSDL2.a */,
+				690436FF1F95A3D30000A43F /* libSDL2.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		690437021F95A4160000A43F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		694F9CB01DB7B2B6008D3AA0 = {
@@ -219,6 +226,7 @@
 			children = (
 				694F9CBB1DB7B2B6008D3AA0 /* LLPlayer */,
 				694F9CBA1DB7B2B6008D3AA0 /* Products */,
+				690437021F95A4160000A43F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -241,8 +249,8 @@
 				694F9CC01DB7B2B6008D3AA0 /* AppDelegate.m */,
 				694F9CC21DB7B2B6008D3AA0 /* ViewController.h */,
 				694F9CC31DB7B2B6008D3AA0 /* ViewController.m */,
-				041EF82C1DD4737A008F3651 /* LLSDLPlayViewController.h */,
-				041EF82D1DD4737A008F3651 /* LLSDLPlayViewController.m */,
+				69F1E6F81F983C10005ADBCF /* LLOpenGlShowVC.h */,
+				69F1E6F91F983C10005ADBCF /* LLOpenGlShowVC.m */,
 				041FEA051E03DEFB00854E51 /* LLAuidoPlayViewController.h */,
 				041FEA061E03DEFB00854E51 /* LLAuidoPlayViewController.m */,
 				694F9CC51DB7B2B6008D3AA0 /* Main.storyboard */,
@@ -329,7 +337,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				043665DF1DBB83970043BC23 /* PBXTargetDependency */,
+				690437011F95A40B0000A43F /* PBXTargetDependency */,
 			);
 			name = LLPlayer;
 			productName = LLPlayer;
@@ -365,8 +373,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 043665D51DBB838D0043BC23 /* Products */;
-					ProjectRef = 043665D41DBB838D0043BC23 /* SDL.xcodeproj */;
+					ProductGroup = 690436F71F95A3D20000A43F /* Products */;
+					ProjectRef = 690436F61F95A3D20000A43F /* SDL.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -377,18 +385,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		043665DB1DBB838D0043BC23 /* libSDL2.a */ = {
+		690436FD1F95A3D30000A43F /* libSDL2.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libSDL2.a;
-			remoteRef = 043665DA1DBB838D0043BC23 /* PBXContainerItemProxy */;
+			remoteRef = 690436FC1F95A3D30000A43F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		043665DD1DBB838D0043BC23 /* libSDL2.a */ = {
+		690436FF1F95A3D30000A43F /* libSDL2.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libSDL2.a;
-			remoteRef = 043665DC1DBB838D0043BC23 /* PBXContainerItemProxy */;
+			remoteRef = 690436FE1F95A3D30000A43F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -415,24 +423,24 @@
 				694F9CC41DB7B2B6008D3AA0 /* ViewController.m in Sources */,
 				041FEA071E03DEFB00854E51 /* LLAuidoPlayViewController.m in Sources */,
 				04882A341E0782E200F59EDC /* LLAudioOutPutQueue.m in Sources */,
-				042F6C231E0A5A50005FBE18 /* KxMovieGLView.m in Sources */,
 				044835831DF80CD900C535B6 /* OpenGLView20.mm in Sources */,
 				694F9CC11DB7B2B6008D3AA0 /* AppDelegate.m in Sources */,
-				041EF82E1DD4737A008F3651 /* LLSDLPlayViewController.m in Sources */,
+				69F1E6FA1F983C10005ADBCF /* LLOpenGlShowVC.m in Sources */,
 				694F9CBE1DB7B2B6008D3AA0 /* main.m in Sources */,
 				044835891DF8189D00C535B6 /* LLAudioManager.m in Sources */,
+				69F1E7021F98903C005ADBCF /* LLMediaGLView.m in Sources */,
 				040C379C1DD1CF7D00B7E2BA /* OpenglView.m in Sources */,
-				042F6C2B1E0A5F71005FBE18 /* LLDecoder.m in Sources */,
+				69F1E6FF1F983EEC005ADBCF /* LLMediaDecoder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		043665DF1DBB83970043BC23 /* PBXTargetDependency */ = {
+		690437011F95A40B0000A43F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = libSDL;
-			targetProxy = 043665DE1DBB83970043BC23 /* PBXContainerItemProxy */;
+			targetProxy = 690437001F95A40B0000A43F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

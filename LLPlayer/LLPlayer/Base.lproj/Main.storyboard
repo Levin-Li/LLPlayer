@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,18 +24,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VNL-FD-bxI">
-                                <rect key="frame" x="48" y="233" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <rect key="frame" x="48" y="233" width="111" height="30"/>
+                                <state key="normal" title="openGl显示画面"/>
                                 <connections>
-                                    <segue destination="dqx-CA-Vkq" kind="modal" id="7iN-QK-uPE"/>
+                                    <segue destination="de7-nD-NC3" kind="modal" id="JhR-NR-ZUl"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tze-vx-qDQ">
                                 <rect key="frame" x="48" y="134" width="62" height="30"/>
                                 <state key="normal" title="音频测试"/>
-                                <connections>
-                                    <segue destination="2jh-AV-OUV" kind="presentation" id="2u3-WU-di8"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8q3-id-MtD">
                                 <rect key="frame" x="220" y="134" width="62" height="30"/>
@@ -55,6 +54,51 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="159" y="10"/>
+        </scene>
+        <!--Open Gl ShowVC-->
+        <scene sceneID="a2g-26-oUP">
+            <objects>
+                <viewController storyboardIdentifier="LLOpenGlShowVC" id="de7-nD-NC3" customClass="LLOpenGlShowVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="e6d-J2-hzG"/>
+                        <viewControllerLayoutGuide type="bottom" id="v5F-2E-q5E"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WXp-I7-dRe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KEq-Bk-4sK">
+                                <rect key="frame" x="16" y="11" width="34" height="30"/>
+                                <state key="normal" title="Start"/>
+                                <connections>
+                                    <action selector="startActon:" destination="de7-nD-NC3" eventType="touchUpInside" id="chs-OS-KFd"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gFx-jg-gYt">
+                                <rect key="frame" x="0.0" y="49" width="375" height="172.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="gFx-jg-gYt" secondAttribute="height" multiplier="800:368" id="Zc7-4N-GqZ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gFx-jg-gYt" firstAttribute="top" secondItem="KEq-Bk-4sK" secondAttribute="bottom" constant="8" id="9i1-qz-mkN"/>
+                            <constraint firstItem="gFx-jg-gYt" firstAttribute="leading" secondItem="WXp-I7-dRe" secondAttribute="leading" id="IbG-Rh-GW4"/>
+                            <constraint firstItem="KEq-Bk-4sK" firstAttribute="leading" secondItem="WXp-I7-dRe" secondAttribute="leading" constant="16" id="axx-5t-pUT"/>
+                            <constraint firstAttribute="trailing" secondItem="gFx-jg-gYt" secondAttribute="trailing" id="j7f-ro-iV8"/>
+                            <constraint firstItem="KEq-Bk-4sK" firstAttribute="top" secondItem="WXp-I7-dRe" secondAttribute="top" constant="11" id="rjw-Sz-xW3"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="playView" destination="gFx-jg-gYt" id="URd-wT-XAA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QJX-ID-e8D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1060" y="11"/>
         </scene>
         <!--Auido Play View Controller-->
         <scene sceneID="Ox8-S8-nZh">
@@ -85,7 +129,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gC7-Oz-bzo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="794" y="28"/>
+            <point key="canvasLocation" x="1706" y="10"/>
         </scene>
         <!--Play View Controller-->
         <scene sceneID="USx-YS-twG">
@@ -116,7 +160,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k9K-jl-B3T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="156" y="793"/>
+            <point key="canvasLocation" x="118" y="910"/>
         </scene>
     </scenes>
 </document>
