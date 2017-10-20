@@ -270,7 +270,7 @@
                     }
                     
                     
-                    if (self.frames.count>30) {
+                    if (self.frames.count>50) {
                         isfinish = YES;//退出
                     }
                     
@@ -286,9 +286,11 @@
                     swr_convert(audio_convert_ctx, &audioOut_buffer, MAX_AUDIO_FRAME_SIZE, (const uint8_t **)audioFrame->data, audioFrame->nb_samples);
                     LLLog("AudioPacketLenght:%5d\t pts:%lld\t packet size:%d\n",ret,packet->pts,packet->size);
                     LLAudioFrame *frame = [[LLAudioFrame alloc]init];
+                    frame.type = LLMediaFrameTypeAudio;
                     frame.samples = [NSData dataWithBytes:audioOut_buffer length:audio_out_buffer_size];
                     frame.timestamp = av_frame_get_best_effort_timestamp(audioFrame) * self.audioTimebase;
                     frame.duration = av_frame_get_pkt_duration(audioFrame) * self.audioTimebase;
+                    [self.frames addObject:frame];
                     
                 }
             }

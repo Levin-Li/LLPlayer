@@ -85,7 +85,7 @@
 - (IBAction)startActon:(UIButton *)sender {
     
     NSLog(@"开始播放!");
-    [self showFrame];
+    [self startPlay];
 }
 
 
@@ -93,7 +93,7 @@
 
 
 
--(void)showFrame
+-(void)startPlay
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -101,48 +101,72 @@
         self.decoder.startDate = [NSDate date];
     });
     
+    //音频
+    GCDMain(^{
+        if (self.audioFrames.count > 0) {
+            LLAudioFrame *audioframe = [self.audioFrames firstObject];
+            [_audioPlayer.receiveData addObject:[NSData dataWithData:audioframe.samples]];
+            [self.audioFrames removeObjectAtIndex:0];
+            //开始播放视频
+            [self showVideoFramePosition:audioframe.timestamp duration:audioframe.duration];
+        }else{
+            NSLog(@" Play end .");
+        }
+        
+    });
+    
+    
+    
+}
+
+-(void)showVideoFramePosition:(CGFloat)position duration:(CGFloat)duration
+{
+    //视频
     GCDBackground(^{
         if (self.videoFrames.count > 0) {
             LLVideoFrameYUV *frame = [self.videoFrames firstObject];
             
-            NSDate *currentdate = [NSDate date];
-            NSTimeInterval interval = [currentdate timeIntervalSinceDate:self.decoder.startDate];
-            if (interval >= frame.timestamp) {
-                //延迟时间大于3秒 丢弃部分帧
-                if (interval > 1.0) {
-                    NSLog(@"frame delay over %f seconds !!!",interval-frame.timestamp);
-                }
-                
-                //显示
-                NSLog(@"CurrentFrametimestamp:%f timer:%f framesCounts:   %lu",frame.timestamp,interval,(unsigned long)self.videoFrames.count);
+            if (frame.timestamp > (position+duration)) {
+                //还没到显示此视频帧的时间
+                CGFloat delayTime = duration;
+                NSLog(@"延迟%f播放下一帧音频",delayTime);
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self startPlay];
+                });
+            }else if (frame.timestamp > position  && frame.timestamp < (position+duration)) {
+                //正常显示
+                NSLog(@"CurrentFrametimestamp:%f framesCounts:   %lu",frame.timestamp,(unsigned long)self.videoFrames.count);
                 GCDMain(^{
                     [_kxglView render:frame];
                     [self.videoFrames removeObjectAtIndex:0];
                 });
                 //延迟此帧需要的持续时间后显示下一帧
-                CGFloat duration = frame.duration>0?frame.duration:0;
-                NSLog(@"延迟%f播放下一帧",duration);
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    //显示下一帧
-                    [self showFrame];
+                CGFloat delayTime = MIN(duration, frame.duration);
+                NSLog(@"延迟%f播放下一帧音频2",delayTime);
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self startPlay];
                 });
-            }else{
-                //还没到帧显示的时间
-                NSTimeInterval sleeptime = frame.timestamp - interval;
-                NSLog(@"Need sleep time:%f",sleeptime);
-                //                [NSThread sleepForTimeInterval:sleeptime];
-                //                [self showFrame];
+            }else if (frame.timestamp < position)
+            {
+                //此帧过时了 直接加快显示
+                NSLog(@"delay %f seconds present frame !",position-frame.timestamp);
+                GCDMain(^{
+                    [_kxglView render:frame];
+                    [self.videoFrames removeObjectAtIndex:0];
+                    //直接播放下一帧视频
+                    [self showVideoFramePosition:position duration:duration];
+                });
             }
+            
         }else{
             NSLog(@"no more frame to show delay 5 seconds");
             //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            //            [self showFrame];
+            //            [self startPlay];
             //        });
         }
     });
-    
-    
 }
+
 #pragma mark MediaDecoderProtocl
 -(void)initAudioPlayer:(AudioStreamBasicDescription)audioFormat
 {
