@@ -8,6 +8,10 @@
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
 
+#import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
+
+# define LLLog(format, ...) NSLog((@"className:%@" "[line:%d]" format),NSStringFromClass([self class]),__LINE__, ##__VA_ARGS__);
 
 typedef enum {
     LLMediaFrameTypeAudio,
@@ -19,9 +23,13 @@ typedef enum {
 }LLVideoFrameFormat;
 
 @class LLMediaDecoder;
+@class LLVideoFrameYUV;
 @protocol MediaDecoderProtocl <NSObject>
 @optional
--(void)showYuvFrame:(LLMediaDecoder*)decoer;
+-(void)initOpenglView;
+-(void)initAudioPlayer:(AudioStreamBasicDescription )audioFormat;
+-(void)showFirsKeyYuvFrame:(LLVideoFrameYUV *)yuvFrame;
+-(void)addNewFrames;
 @end
 //父类
 @interface LLMediaFrame : NSObject
@@ -49,11 +57,21 @@ typedef enum {
 @property (readonly, nonatomic, strong) NSData *chromaR;
 @end
 
+@interface LLAudioFrame:LLMediaFrame
+//pcm数据
+@property (readonly, nonatomic, strong) NSData *samples;
+@end
+
 @interface LLMediaDecoder : NSObject
+-(BOOL)isValidtyVideo;
+-(BOOL)isValidtyAudio;
+@property (readonly, nonatomic) NSUInteger width;
+@property (readonly, nonatomic) NSUInteger height;
+
 @property(nonatomic,strong)NSDate *startDate;
 @property(nonatomic,weak)id<MediaDecoderProtocl> delegete;
 //存放解码后的每一帧数据
-@property(nonatomic,strong)NSMutableArray <LLVideoFrameYUV *>*yuvframes;
+@property(nonatomic,strong)NSMutableArray <LLMediaFrame *>*frames;
 //打开文件开始播放
 -(void)openFile:(NSString *)path;
 

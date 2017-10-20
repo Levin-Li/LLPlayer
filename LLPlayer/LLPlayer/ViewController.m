@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <time.h>
 #import "OpenglView.h"
-#import "LLSDLPlayViewController.h"
+//#import "LLSDLPlayViewController.h"
 #import "LLAudioOutPutQueue.h"
 //#import <SystemConfiguration/SystemConfiguration.h>
 
@@ -327,7 +327,7 @@ int sfp_refresh_thread(void *opaque){
     
     audioPacket=(AVPacket *)av_malloc(sizeof(AVPacket));
     av_init_packet(audioPacket);
-    
+    //解码后的pcm格式
     //Out Audio Param
     uint64_t out_channel_layout=AV_CH_LAYOUT_STEREO;
     //nb_samples: AAC-1024 MP3-1152
@@ -341,7 +341,7 @@ int sfp_refresh_thread(void *opaque){
     audioOut_buffer=(uint8_t *)av_malloc(MAX_AUDIO_FRAME_SIZE*2);
     audioFrame=av_frame_alloc();
     
-    
+    //播放格式
     AudioStreamBasicDescription audioFormat;
     audioFormat.mSampleRate = out_sample_rate;
     audioFormat.mChannelsPerFrame = out_channels;
