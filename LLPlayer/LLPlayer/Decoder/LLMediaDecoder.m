@@ -12,10 +12,12 @@
 #include <libavutil/time.h>
 #include <libswscale/swscale.h>
 #include <libswresample/swresample.h>
-
+#import "LLAudioQueuePlayer.h"
 
 //音频
 #define MAX_AUDIO_FRAME_SIZE 192000 // 1 second of 48khz 32bit audio
+//Output PCM
+#define OUTPUT_PCM 1
 
 @interface LLMediaFrame()
 @property (nonatomic, assign) LLMediaFrameType type;
@@ -79,6 +81,11 @@
     uint8_t *audioOut_buffer;
     struct SwrContext *audio_convert_ctx;
     int audio_out_buffer_size;
+    
+    //解码队列
+    dispatch_queue_t    _dispatchDecodeQueue;
+    
+    FILE *pFile;
 }
 -(NSMutableArray <LLMediaFrame *>*)frames
 {
@@ -101,6 +108,8 @@
 {
     NSAssert(path, @"path is nill !!!");
     self.filePath = path;
+    _dispatchDecodeQueue = dispatch_queue_create("decodeQueue", DISPATCH_QUEUE_SERIAL);
+    
     av_register_all();
     avformat_network_init();
     pformatCtx = avformat_alloc_context();
@@ -109,8 +118,7 @@
         printf("couldn't open input stream.\n");
         return;
     }
-    
-    
+
     if (avformat_find_stream_info(pformatCtx,NULL) < 0) {
         printf("couldn't find stream information.\n");
         return;
@@ -123,7 +131,7 @@
             videoIndex = i;
             printf("find video stream %d\n",i);
         }
-        if(pformatCtx->streams[i]->codec->codec_type==AVMEDIA_TYPE_AUDIO){
+        if(pformatCtx->streams[i]->codec->codec_type == AVMEDIA_TYPE_AUDIO){
             audioIndex=i;
             printf("find audio stream %d\n",i);
         }
@@ -141,8 +149,12 @@
      [self initAudioDecode];
     //初始化视频解码
     [self initVideoDecode];
-    //开始解码
-    [self startDecode];
+    
+    GCDMain(^{
+        //开始解码
+        [self startDecodeDuration:LLMinCacheDutation];
+    });
+   
     
 }
 #pragma mark 视频处理
@@ -198,117 +210,156 @@
                                      videoCodecCtx->width, videoCodecCtx->height, PIX_FMT_YUV420P, SWS_BICUBIC, NULL, NULL, NULL);//转码的信息
 }
 
--(void)startDecode
+-(void)startDecodeDuration:(CGFloat)duration
 {
-    //移除所有的帧
-    [self.frames removeAllObjects];
-    
-    packet = (AVPacket *)av_malloc(sizeof(AVPacket));
-    int ret,got_picture;
-    BOOL isfinish = NO;
-    //每次读一个包出来直到所有包读完
-    while (!isfinish) {
-        if (av_read_frame(pformatCtx, packet)>=0) {
-            ret = 0;got_picture= 0;
-            NSLog(@"paktPts:%lld",packet->pts);
-            if (packet->stream_index==videoIndex) {
-                //解码一帧数据出来 ret代表从packt解码的数据长度
-                ret = avcodec_decode_video2(videoCodecCtx, videoFrame, &got_picture, packet);
-                if (ret<0) {
-                    printf("Decode Error.\n");
-                    return ;
-                }
-                LLLog(@"videoPacketLenght:%d",ret);
-                if (got_picture == 0) {
-                    printf("no get picture !\n");
-                }
-                
-                if (got_picture) {
-                    
-                    //转成一帧yuv数据 此处的yuv帧只存yuv数据其它数据都不存
-                    sws_scale(img_convert_ctx, (const uint8_t* const*)videoFrame->data, videoFrame->linesize, 0, videoCodecCtx->height, videoFrameYUV->data, videoFrameYUV->linesize);
-                    //视频帧的显示时间pts
-                    double timestamp = av_frame_get_best_effort_timestamp(videoFrame)*self.videoTimebase;
-                    NSLog(@"video time stamp:%lf",timestamp);
-                    //必要信息存储起来
-                    LLVideoFrameYUV *yuvFrame = [[LLVideoFrameYUV alloc]init];
-                    yuvFrame.type = LLMediaFrameTypeVideo;
-                    yuvFrame.timestamp = timestamp;
-                    yuvFrame.width = videoCodecCtx->width;
-                    yuvFrame.height = videoCodecCtx->height;
-                    yuvFrame.luma = copyFrameData(videoFrameYUV->data[0],
-                                                  videoFrameYUV->linesize[0],
-                                                  videoCodecCtx->width,
-                                                  videoCodecCtx->height);
-                    
-                    yuvFrame.chromaB = copyFrameData(videoFrameYUV->data[1],
-                                                     videoFrameYUV->linesize[1],
-                                                     videoCodecCtx->width / 2,
-                                                     videoCodecCtx->height / 2);
-                    
-                    yuvFrame.chromaR = copyFrameData(videoFrameYUV->data[2],
-                                                     videoFrameYUV->linesize[2],
-                                                     videoCodecCtx->width / 2,
-                                                     videoCodecCtx->height / 2);
-                    const int64_t frameDuration = av_frame_get_pkt_duration(videoFrame);
-                    if (frameDuration) {
-                        yuvFrame.duration = frameDuration * self.videoTimebase;
-                        // 当前帧的显示时间戳 * 时基 +额外的延迟时间 extra_delay = repeat_pict / (2*fps)
-                        //科普：fps = 1.0/timebase
-                        yuvFrame.duration += videoFrame->repeat_pict * self.videoTimebase * 0.5;
-                    }
-                    //                NSLog(@"yuvframeDuration:%f",yuvFrame.duration);
-                    [self.frames addObject:yuvFrame];
-                    if (videoFrame->key_frame) {
-                        NSLog(@"it is key frame!");
-                        static dispatch_once_t onceToken;
-                        dispatch_once(&onceToken, ^{
-                            if ( self.delegete && [self.delegete respondsToSelector:@selector(showFirsKeyYuvFrame:)]) {
-                                [self.delegete showFirsKeyYuvFrame:yuvFrame];
+    dispatch_async(_dispatchDecodeQueue, ^{
+        CGFloat cacheDuration = 0;
+        //移除所有的帧
+        [self.frames removeAllObjects];
+        
+        packet = (AVPacket *)av_malloc(sizeof(AVPacket));
+        av_init_packet(packet);
+        
+        int ret,got_picture;
+        BOOL isfinish = NO;
+        //每次读一个包出来直到所有包读完
+        while (!isfinish) {
+            if (av_read_frame(pformatCtx, packet) >= 0) {
+                ret = 0;got_picture= 0;
+                NSLog(@"paktSize:%d",packet->size);
+                if (packet->stream_index==videoIndex) {
+                    int packeSize = packet->size;
+                    while (packeSize > 0) {
+                        //解码一帧数据出来 ret代表从packt解码的数据长度
+                        ret = avcodec_decode_video2(videoCodecCtx, videoFrame, &got_picture, packet);
+                        if (ret<0) {
+                            printf("Decode Error.\n");
+                            return ;
+                        }
+                        LLLog(@"videoPacketDecodeLenght:%d",ret);
+                        if (got_picture == 0) {
+                            printf("no get picture !\n");
+                        }
+                        
+                        if (got_picture) {
+                            
+                            //转成一帧yuv数据 此处的yuv帧只存yuv数据其它数据都不存
+                            sws_scale(img_convert_ctx, (const uint8_t* const*)videoFrame->data, videoFrame->linesize, 0, videoCodecCtx->height, videoFrameYUV->data, videoFrameYUV->linesize);
+                            //视频帧的显示时间pts
+                            double timestamp = av_frame_get_best_effort_timestamp(videoFrame)*self.videoTimebase;
+                            NSLog(@"video time stamp:%lf",timestamp);
+                            //必要信息存储起来
+                            LLVideoFrameYUV *yuvFrame = [[LLVideoFrameYUV alloc]init];
+                            yuvFrame.type = LLMediaFrameTypeVideo;
+                            yuvFrame.timestamp = timestamp;
+                            yuvFrame.width = videoCodecCtx->width;
+                            yuvFrame.height = videoCodecCtx->height;
+                            yuvFrame.luma = copyFrameData(videoFrameYUV->data[0],
+                                                          videoFrameYUV->linesize[0],
+                                                          videoCodecCtx->width,
+                                                          videoCodecCtx->height);
+                            
+                            yuvFrame.chromaB = copyFrameData(videoFrameYUV->data[1],
+                                                             videoFrameYUV->linesize[1],
+                                                             videoCodecCtx->width / 2,
+                                                             videoCodecCtx->height / 2);
+                            
+                            yuvFrame.chromaR = copyFrameData(videoFrameYUV->data[2],
+                                                             videoFrameYUV->linesize[2],
+                                                             videoCodecCtx->width / 2,
+                                                             videoCodecCtx->height / 2);
+                            const int64_t frameDuration = av_frame_get_pkt_duration(videoFrame);
+                            if (frameDuration) {
+                                yuvFrame.duration = frameDuration * self.videoTimebase;
+                                // 当前帧的显示时间戳 * 时基 +额外的延迟时间 extra_delay = repeat_pict / (2*fps)
+                                //科普：fps = 1.0/timebase
+                                yuvFrame.duration += videoFrame->repeat_pict * self.videoTimebase * 0.5;
+                                cacheDuration +=yuvFrame.duration;//0.041667
+//                                NSLog(@"videoFrameduration:%f",yuvFrame.duration);
                             }
-                        });
+                            //                NSLog(@"yuvframeDuration:%f",yuvFrame.duration);
+                            [self.frames addObject:yuvFrame];
+                            if (videoFrame->key_frame) {
+                                NSLog(@"it is key frame!");
+                                static dispatch_once_t onceToken;
+                                dispatch_once(&onceToken, ^{
+                                    if ( self.delegete && [self.delegete respondsToSelector:@selector(showFirsKeyYuvFrame:)]) {
+                                        [self.delegete showFirsKeyYuvFrame:yuvFrame];
+                                    }
+                                });
+                            }
+                            
+                        }if (ret == 0) {
+                            break;
+                        }
+                        packeSize -= ret;
                     }
                     
-                    
-                    if (self.frames.count>50) {
+                    if (cacheDuration > duration) {
                         isfinish = YES;//退出
                     }
                     
-                }
-            }else if (packet->stream_index == audioIndex){
-                //音频处理
-                ret = avcodec_decode_audio4(audioCodecCtx, audioFrame, &got_picture, packet);
-                if (ret < 0) {
-                    LLLog("Error in decoding audio frame. !!!");
-                    return;
-                }
-                if (got_picture) {
-                    swr_convert(audio_convert_ctx, &audioOut_buffer, MAX_AUDIO_FRAME_SIZE, (const uint8_t **)audioFrame->data, audioFrame->nb_samples);
-                    LLLog("AudioPacketLenght:%5d\t pts:%lld\t packet size:%d\n",ret,packet->pts,packet->size);
-                    LLAudioFrame *frame = [[LLAudioFrame alloc]init];
-                    frame.type = LLMediaFrameTypeAudio;
-                    frame.samples = [NSData dataWithBytes:audioOut_buffer length:audio_out_buffer_size];
-                    frame.timestamp = av_frame_get_best_effort_timestamp(audioFrame) * self.audioTimebase;
-                    frame.duration = av_frame_get_pkt_duration(audioFrame) * self.audioTimebase;
-                    [self.frames addObject:frame];
-                    
+                }else if (packet->stream_index == audioIndex){
+                    int packeSize = packet->size;
+                    //处理一个包有多个帧的情况
+                    while (packeSize > 0) {
+                        //音频处理
+                        ret = avcodec_decode_audio4(audioCodecCtx, audioFrame, &got_picture, packet);
+                        if (ret < 0) {
+                            LLLog("Error in decoding audio frame. !!!");
+                            return;
+                        }
+                        if (got_picture) {
+                            LLLog(@"audioFrameNb_samples:%d",audioFrame->nb_samples);
+                            swr_convert(audio_convert_ctx, &audioOut_buffer, MAX_AUDIO_FRAME_SIZE, (const uint8_t **)audioFrame->data, audioFrame->nb_samples);
+                            
+#if OUTPUT_PCM
+                            //Write PCM
+                            fwrite(audioOut_buffer, 1, audio_out_buffer_size, pFile);
+#endif
+                           
+                            LLAudioFrame *frame = [[LLAudioFrame alloc]init];
+                            frame.type = LLMediaFrameTypeAudio;
+                            frame.samples = [NSData dataWithBytes:audioOut_buffer length:audio_out_buffer_size];
+                            frame.timestamp = av_frame_get_best_effort_timestamp(audioFrame) * self.audioTimebase;
+                            frame.duration = av_frame_get_pkt_duration(audioFrame) * self.audioTimebase;//0.023220
+                            [self.frames addObject:frame];
+                            cacheDuration += frame.duration;
+                            LLLog("audioPacketDecoLenght:%5d\t pts:%lld\t packet size:%d ",ret,packet->pts,packet->size);
+//                            LLAudioQueuePlayer *player = [LLAudioQueuePlayer sharedInstance];
+//                            [player.receiveData addObject:frame.samples];
+                            
+                        }
+                        if (ret == 0) {
+                            break;
+                        }
+                        packeSize -=ret;
+                    }
+                    if (cacheDuration > duration) {
+                        isfinish = YES;//退出
+                    }
                 }
             }
         }
-    }
+        
+#if OUTPUT_PCM
+        fclose(pFile);
+#endif
+        if (self.delegete && [self.delegete respondsToSelector:@selector(addNewFrames)]) {
+            [self.delegete addNewFrames];
+        }
+        
+        av_free_packet(packet);
+        
+        // [self closeVideoDecoder];
+    });
     
-    if (self.delegete && [self.delegete respondsToSelector:@selector(addNewFrames)]) {
-        [self.delegete addNewFrames];
-    }
-    
-    av_free_packet(packet);
-   
-    // [self closeVideoDecoder];
     
 }
 
 -(void)closeVideoDecoder
 {
+            swr_free(&audio_convert_ctx);
             sws_freeContext(img_convert_ctx);
             av_frame_free(&videoFrameYUV);
             av_frame_free(&videoFrame);
@@ -320,6 +371,10 @@
 
 -(void)initAudioDecode
 {
+#if OUTPUT_PCM
+    pFile=fopen("/Users/luoluo/Desktop/pcmData", "wb");
+#endif
+    
     //音频
     AVStream *audioStream = pformatCtx->streams[audioIndex];
     //fps= 1/timebase
@@ -332,7 +387,7 @@
     else
         _audioTimebase = 0.025;//获取不到时设为0.025
     
-    LLLog(@"Video stream timeBase:%f userTimebase:%f avg_fps:%f fps:%f",av_q2d(audioStream->time_base),self.audioTimebase,av_q2d(audioStream->avg_frame_rate),av_q2d(audioStream->r_frame_rate));
+    LLLog(@"audio stream timeBase:%f userTimebase:%f avg_fps:%f fps:%f",av_q2d(audioStream->time_base),self.audioTimebase,av_q2d(audioStream->avg_frame_rate),av_q2d(audioStream->r_frame_rate));
     
     audioCodecCtx = pformatCtx->streams[audioIndex]->codec;
     audioCodec = avcodec_find_decoder(audioCodecCtx->codec_id);
@@ -344,21 +399,21 @@
         printf("Could not open audioCodec.\n");
         return ;
     }
-    
-    LLLog(@"channels=%d sample_fmt=%d",audioCodecCtx->channels,audioCodecCtx->sample_fmt);
     audioFrame=av_frame_alloc();
+    //存转换格式后的音频帧数据
+    audioOut_buffer=(uint8_t *)av_malloc(MAX_AUDIO_FRAME_SIZE*2);
+    
+     LLLog(@"audioCodecCtxChannels=%d sample_fmt=%d frameSize:%d",audioCodecCtx->channels,audioCodecCtx->sample_fmt,audioCodecCtx->frame_size);
     
     //解码后的pcm需要转成的播放格式
     uint64_t out_channel_layout=AV_CH_LAYOUT_STEREO;
     //nb_samples: AAC-1024 MP3-1152
-    int out_nb_samples=audioCodecCtx->frame_size;
-    enum AVSampleFormat out_sample_fmt=AV_SAMPLE_FMT_S16;
-    int out_sample_rate=44100;
-    int out_channels=av_get_channel_layout_nb_channels(out_channel_layout);
-    //Out Buffer Size
+    int out_nb_samples=audioCodecCtx->frame_size; //aac一帧的采样点为1024
+    enum AVSampleFormat out_sample_fmt = AV_SAMPLE_FMT_S16;
+    int out_sample_rate = 44100;//每秒是44100个采样点
+    int out_channels = av_get_channel_layout_nb_channels(out_channel_layout);
+    //Out Buffer Size 一帧数据量：1024*2*av_get_bytes_per_sample(s16) = 4096个字节。
      audio_out_buffer_size = av_samples_get_buffer_size(NULL,out_channels ,out_nb_samples,out_sample_fmt, 1);
-    
-    audioOut_buffer=(uint8_t *)av_malloc(MAX_AUDIO_FRAME_SIZE*2);
     
     //播放格式
     AudioStreamBasicDescription audioFormat;
@@ -370,7 +425,7 @@
     int ByteN = audioFormat.mBytesPerFrame = (audioFormat.mBitsPerChannel / 8) * audioFormat.mChannelsPerFrame;
     audioFormat.mBytesPerPacket = audioFormat.mBytesPerFrame = (audioFormat.mBitsPerChannel / 8) * audioFormat.mChannelsPerFrame;
     audioFormat.mFramesPerPacket = 1;
-    LLLog(@"out_sample_rate=%d out_channels=%d out_buffer_size=%d ByteN=%d",out_sample_rate,out_channels,audio_out_buffer_size,ByteN);
+    LLLog(@"out_sample_rate=%d out_channels=%d audio_out_buffer_size=%d ByteN=%d",out_sample_rate,out_channels,audio_out_buffer_size,ByteN);
     //初始化音频播放器
     if (self.delegete && [self.delegete respondsToSelector:@selector(initAudioPlayer:)]) {
         [self.delegete initAudioPlayer:audioFormat];
@@ -378,10 +433,12 @@
     
     //转换
     audio_convert_ctx = swr_alloc();
-   int64_t in_channel_layout=av_get_default_channel_layout(audioCodecCtx->channels);
-    audio_convert_ctx=swr_alloc_set_opts(audio_convert_ctx,out_channel_layout, out_sample_fmt, out_sample_rate,
+    
+   int64_t in_channel_layout = av_get_default_channel_layout(audioCodecCtx->channels);
+    audio_convert_ctx = swr_alloc_set_opts(audio_convert_ctx,out_channel_layout, out_sample_fmt, out_sample_rate,
                                       in_channel_layout,audioCodecCtx->sample_fmt , audioCodecCtx->sample_rate,0, NULL);
     swr_init(audio_convert_ctx);
+    
     
     
  

@@ -75,7 +75,7 @@ enum TextureType
     //使用着色器
     glUseProgram(_program);
     
-    //获取一致变量的存储位置
+    //获取统一变量的存储位置
     GLuint textureUniformY = glGetUniformLocation(_program, "SamplerY");
     GLuint textureUniformU = glGetUniformLocation(_program, "SamplerU");
     GLuint textureUniformV = glGetUniformLocation(_program, "SamplerV");
@@ -311,7 +311,7 @@ TexCoordOut = TexCoordIn;\
      绑定需要在link之前
      */
     //把顶点属性索引绑定到顶点属性名
-    glBindAttribLocation(_program, ATTRIB_VERTEX, "position");
+    glBindAttribLocation(_program, ATTRIB_VERTEX, "position");//  GLKVertexAttribPosition
     glBindAttribLocation(_program, ATTRIB_TEXTURE, "TexCoordIn");
     
     //链接
@@ -321,7 +321,7 @@ TexCoordOut = TexCoordIn;\
      3
      */
     GLint linkSuccess;
-    //查询相关信息,并将数据返回到linkSuccess
+    //查询链接状态,并将数据返回到linkSuccess
     glGetProgramiv(_program, GL_LINK_STATUS, &linkSuccess);
     if (linkSuccess == GL_FALSE) {
         GLchar messages[256];

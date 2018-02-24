@@ -23,33 +23,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VNL-FD-bxI">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VNL-FD-bxI">
                                 <rect key="frame" x="48" y="233" width="111" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="openGl显示画面"/>
                                 <connections>
                                     <segue destination="de7-nD-NC3" kind="modal" id="JhR-NR-ZUl"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tze-vx-qDQ">
-                                <rect key="frame" x="48" y="134" width="62" height="30"/>
-                                <state key="normal" title="音频测试"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8q3-id-MtD">
-                                <rect key="frame" x="220" y="134" width="62" height="30"/>
-                                <state key="normal" title="视频测试"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8q3-id-MtD">
+                                <rect key="frame" x="83" y="113" width="62" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Test"/>
                                 <connections>
                                     <action selector="videoTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="I4b-Ar-HEo"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <constraints>
-                            <constraint firstItem="Tze-vx-qDQ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="114" id="BTL-cK-bcy"/>
-                            <constraint firstItem="8q3-id-MtD" firstAttribute="centerY" secondItem="Tze-vx-qDQ" secondAttribute="centerY" id="OOq-fh-oMS"/>
-                            <constraint firstItem="8q3-id-MtD" firstAttribute="leading" secondItem="Tze-vx-qDQ" secondAttribute="trailing" constant="110" id="RLY-Xr-pSS"/>
-                            <constraint firstItem="VNL-FD-bxI" firstAttribute="leading" secondItem="Tze-vx-qDQ" secondAttribute="leading" id="SQV-I4-k8S"/>
-                            <constraint firstItem="VNL-FD-bxI" firstAttribute="top" secondItem="Tze-vx-qDQ" secondAttribute="bottom" constant="69" id="mW4-Lh-DRs"/>
-                            <constraint firstItem="Tze-vx-qDQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="32" id="w1a-MC-D9E"/>
-                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

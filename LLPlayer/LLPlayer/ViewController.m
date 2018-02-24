@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #include <libavformat/avformat.h>
+#include <libavutil/avutil.h>
 #include <libavutil/mathematics.h>
 #include <libavutil/time.h>
 #include <libswscale/swscale.h>
@@ -16,9 +17,10 @@
 #include <stdio.h>
 #include <time.h>
 #import "OpenglView.h"
-//#import "LLSDLPlayViewController.h"
-#import "LLAudioOutPutQueue.h"
-//#import <SystemConfiguration/SystemConfiguration.h>
+#import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
+//#import "LLAudioOutPutQueue.h"
+
 
 //Output PCM
 #define OUTPUT_PCM 1
@@ -88,7 +90,7 @@ int sfp_refresh_thread(void *opaque){
     struct SwrContext *au_convert_ctx;
     
     //
-    LLAudioOutPutQueue *_audioPcm;
+//    LLAudioOutPutQueue *_audioPcm;
     
     FILE *pFile;
     
@@ -97,12 +99,9 @@ int sfp_refresh_thread(void *opaque){
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-//    self.view.backgroundColor = [UIColor redColor];
-//    [self createGLView];
-
+    
+    NSLog(@"codec_version:%u util:%u format:%u",avcodec_version(),avutil_version(),avformat_version());
    
-    //SDL显示一个矩形
-//    [self createRectangle];
    }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -206,6 +205,7 @@ int sfp_refresh_thread(void *opaque){
     //Output Info-----------------------------
     printf("--------------- File Information ----------------\n");
     av_dump_format(pformatCtx, 0, [input_nsstr UTF8String], 0);
+    
     printf("-------------------------------------------------\n");
     //转格式为PIX_FMT_YUV420P
     img_convert_ctx = sws_getContext(pCodecCtx->width, pCodecCtx->height, pCodecCtx->pix_fmt,
@@ -248,9 +248,9 @@ int sfp_refresh_thread(void *opaque){
     //SDL End----------------------
     
     //***开始音频播放
-//    [self audioPcmPlay];
+    [self audioPcmPlay];
     //***开始视频播放
-    [self videoPlay];
+//    [self videoPlay];
    
     
     
@@ -320,9 +320,9 @@ int sfp_refresh_thread(void *opaque){
 -(void)audioPcmPlay
 {
 #if OUTPUT_PCM
-    pFile=fopen("/Users/mac/Desktop/pcmData", "wb");
+    pFile=fopen("/Users/luoluo/Desktop/pcmData2", "wb");
 #endif
-    _audioPcm = [[LLAudioOutPutQueue alloc]init];
+//    _audioPcm = [[LLAudioOutPutQueue alloc]init];
     
     
     audioPacket=(AVPacket *)av_malloc(sizeof(AVPacket));
@@ -354,16 +354,19 @@ int sfp_refresh_thread(void *opaque){
     NSLog(@"out_sample_rate=%d out_channels=%d out_buffer_size=%d ByteN=%d",out_sample_rate,out_channels,out_buffer_size,ByteN);
     NSLog(@"channels=%d nb_samples=%d sample_fmt=%d",audioCodecCtx->channels,audioFrame->nb_samples,audioCodecCtx->sample_fmt);
     
-    [_audioPcm registAudio:audioFormat];
+//    [_audioPcm registAudio:audioFormat];
     
-   // FIX:Some Codec's Context Information is missing
-    in_channel_layout=av_get_default_channel_layout(audioCodecCtx->channels);
+  
     
     //Swr
     au_convert_ctx = swr_alloc();
+    
+    // FIX:Some Codec's Context Information is missing
+    in_channel_layout=av_get_default_channel_layout(audioCodecCtx->channels);
     au_convert_ctx=swr_alloc_set_opts(au_convert_ctx,out_channel_layout, out_sample_fmt, out_sample_rate,
                                       in_channel_layout,audioCodecCtx->sample_fmt , audioCodecCtx->sample_rate,0, NULL);
-    swr_init(au_convert_ctx);
+   swr_init(au_convert_ctx);
+    
     
     audioTag = 0;
     audioGot_picture = 0;
@@ -380,12 +383,12 @@ int sfp_refresh_thread(void *opaque){
                         
 #if OUTPUT_PCM
                         //Write PCM
-                        fwrite(out_buffer, 1, out_buffer_size, pFile);
+                        fwrite(audioOut_buffer, 1, out_buffer_size, pFile);
 #endif
                         
                         printf("index:%5d\t pts:%lld\t packet size:%d\n",audioTag,audioPacket->pts,audioPacket->size);
                         NSData *pcmdata = [NSData dataWithBytes:audioOut_buffer length:out_buffer_size];
-                        [_audioPcm.receiveData addObject:pcmdata];
+//                        [_audioPcm.receiveData addObject:pcmdata];
                         audioTag ++;
                         
                     }else{

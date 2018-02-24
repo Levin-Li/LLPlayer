@@ -8,10 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		040C379C1DD1CF7D00B7E2BA /* OpenglView.m in Sources */ = {isa = PBXBuildFile; fileRef = 040C379B1DD1CF7D00B7E2BA /* OpenglView.m */; };
-		041FEA071E03DEFB00854E51 /* LLAuidoPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041FEA061E03DEFB00854E51 /* LLAuidoPlayViewController.m */; };
-		044835831DF80CD900C535B6 /* OpenGLView20.mm in Sources */ = {isa = PBXBuildFile; fileRef = 044835821DF80CD900C535B6 /* OpenGLView20.mm */; };
-		044835891DF8189D00C535B6 /* LLAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 044835881DF8189D00C535B6 /* LLAudioManager.m */; };
-		04882A341E0782E200F59EDC /* LLAudioOutPutQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 04882A331E0782E200F59EDC /* LLAudioOutPutQueue.m */; };
 		04F590CC1DB88749000E500D /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590CB1DB88749000E500D /* GameController.framework */; };
 		04F590CE1DB88753000E500D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590CD1DB88753000E500D /* CoreMotion.framework */; };
 		04F590D01DB8875F000E500D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590CF1DB8875F000E500D /* CoreAudio.framework */; };
@@ -28,6 +24,8 @@
 		694F9CC71DB7B2B6008D3AA0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 694F9CC51DB7B2B6008D3AA0 /* Main.storyboard */; };
 		694F9CC91DB7B2B6008D3AA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 694F9CC81DB7B2B6008D3AA0 /* Assets.xcassets */; };
 		694F9CCC1DB7B2B6008D3AA0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 694F9CCA1DB7B2B6008D3AA0 /* LaunchScreen.storyboard */; };
+		69A428871F9D8139002B7E70 /* LLAudioQueuePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A428861F9D8139002B7E70 /* LLAudioQueuePlayer.m */; };
+		69A4288A1F9DAB10002B7E70 /* KxAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A428891F9DAB0F002B7E70 /* KxAudioManager.m */; };
 		69A92FBF1DB7B466006907B8 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FB51DB7B466006907B8 /* libavcodec.a */; };
 		69A92FC01DB7B466006907B8 /* libavdevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FB61DB7B466006907B8 /* libavdevice.a */; };
 		69A92FC11DB7B466006907B8 /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FB71DB7B466006907B8 /* libavfilter.a */; };
@@ -73,14 +71,6 @@
 /* Begin PBXFileReference section */
 		040C379A1DD1CF7D00B7E2BA /* OpenglView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenglView.h; sourceTree = "<group>"; };
 		040C379B1DD1CF7D00B7E2BA /* OpenglView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenglView.m; sourceTree = "<group>"; };
-		041FEA051E03DEFB00854E51 /* LLAuidoPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLAuidoPlayViewController.h; sourceTree = "<group>"; };
-		041FEA061E03DEFB00854E51 /* LLAuidoPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLAuidoPlayViewController.m; sourceTree = "<group>"; };
-		044835811DF80CD900C535B6 /* OpenGLView20.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLView20.h; sourceTree = "<group>"; };
-		044835821DF80CD900C535B6 /* OpenGLView20.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenGLView20.mm; sourceTree = "<group>"; };
-		044835871DF8189D00C535B6 /* LLAudioManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLAudioManager.h; sourceTree = "<group>"; };
-		044835881DF8189D00C535B6 /* LLAudioManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLAudioManager.m; sourceTree = "<group>"; };
-		04882A321E0782E200F59EDC /* LLAudioOutPutQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLAudioOutPutQueue.h; sourceTree = "<group>"; };
-		04882A331E0782E200F59EDC /* LLAudioOutPutQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLAudioOutPutQueue.m; sourceTree = "<group>"; };
 		04F590CB1DB88749000E500D /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
 		04F590CD1DB88753000E500D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		04F590CF1DB8875F000E500D /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
@@ -101,6 +91,10 @@
 		694F9CC81DB7B2B6008D3AA0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		694F9CCB1DB7B2B6008D3AA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		694F9CCD1DB7B2B6008D3AA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		69A428851F9D8139002B7E70 /* LLAudioQueuePlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLAudioQueuePlayer.h; sourceTree = "<group>"; };
+		69A428861F9D8139002B7E70 /* LLAudioQueuePlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLAudioQueuePlayer.m; sourceTree = "<group>"; };
+		69A428881F9DAB0F002B7E70 /* KxAudioManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KxAudioManager.h; sourceTree = "<group>"; };
+		69A428891F9DAB0F002B7E70 /* KxAudioManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KxAudioManager.m; sourceTree = "<group>"; };
 		69A92FB51DB7B466006907B8 /* libavcodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavcodec.a; sourceTree = "<group>"; };
 		69A92FB61DB7B466006907B8 /* libavdevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavdevice.a; sourceTree = "<group>"; };
 		69A92FB71DB7B466006907B8 /* libavfilter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavfilter.a; sourceTree = "<group>"; };
@@ -158,8 +152,6 @@
 		040C37991DD1CF7D00B7E2BA /* OpenGLView */ = {
 			isa = PBXGroup;
 			children = (
-				044835861DF8187A00C535B6 /* audio */,
-				044835801DF80CD900C535B6 /* OpenGLView20 */,
 				040C379A1DD1CF7D00B7E2BA /* OpenglView.h */,
 				040C379B1DD1CF7D00B7E2BA /* OpenglView.m */,
 				69F1E7001F98903C005ADBCF /* LLMediaGLView.h */,
@@ -175,26 +167,6 @@
 				69F1E6FE1F983EEC005ADBCF /* LLMediaDecoder.m */,
 			);
 			path = Decoder;
-			sourceTree = "<group>";
-		};
-		044835801DF80CD900C535B6 /* OpenGLView20 */ = {
-			isa = PBXGroup;
-			children = (
-				044835811DF80CD900C535B6 /* OpenGLView20.h */,
-				044835821DF80CD900C535B6 /* OpenGLView20.mm */,
-			);
-			path = OpenGLView20;
-			sourceTree = "<group>";
-		};
-		044835861DF8187A00C535B6 /* audio */ = {
-			isa = PBXGroup;
-			children = (
-				04882A321E0782E200F59EDC /* LLAudioOutPutQueue.h */,
-				04882A331E0782E200F59EDC /* LLAudioOutPutQueue.m */,
-				044835871DF8189D00C535B6 /* LLAudioManager.h */,
-				044835881DF8189D00C535B6 /* LLAudioManager.m */,
-			);
-			path = audio;
 			sourceTree = "<group>";
 		};
 		04F590B81DB886BE000E500D /* SDL */ = {
@@ -241,6 +213,7 @@
 		694F9CBB1DB7B2B6008D3AA0 /* LLPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				69BF428A1F9D7FD4004DFAF9 /* audioPlayer */,
 				042F6C281E0A5F5D005FBE18 /* Decoder */,
 				040C37991DD1CF7D00B7E2BA /* OpenGLView */,
 				69A92FCE1DB7B705006907B8 /* Resouce */,
@@ -251,8 +224,6 @@
 				694F9CC31DB7B2B6008D3AA0 /* ViewController.m */,
 				69F1E6F81F983C10005ADBCF /* LLOpenGlShowVC.h */,
 				69F1E6F91F983C10005ADBCF /* LLOpenGlShowVC.m */,
-				041FEA051E03DEFB00854E51 /* LLAuidoPlayViewController.h */,
-				041FEA061E03DEFB00854E51 /* LLAuidoPlayViewController.m */,
 				694F9CC51DB7B2B6008D3AA0 /* Main.storyboard */,
 				694F9CC81DB7B2B6008D3AA0 /* Assets.xcassets */,
 				694F9CCA1DB7B2B6008D3AA0 /* LaunchScreen.storyboard */,
@@ -321,6 +292,17 @@
 				69A92FCF1DB7B723006907B8 /* resource.bundle */,
 			);
 			path = Resouce;
+			sourceTree = "<group>";
+		};
+		69BF428A1F9D7FD4004DFAF9 /* audioPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				69A428881F9DAB0F002B7E70 /* KxAudioManager.h */,
+				69A428891F9DAB0F002B7E70 /* KxAudioManager.m */,
+				69A428851F9D8139002B7E70 /* LLAudioQueuePlayer.h */,
+				69A428861F9D8139002B7E70 /* LLAudioQueuePlayer.m */,
+			);
+			path = audioPlayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -421,13 +403,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				694F9CC41DB7B2B6008D3AA0 /* ViewController.m in Sources */,
-				041FEA071E03DEFB00854E51 /* LLAuidoPlayViewController.m in Sources */,
-				04882A341E0782E200F59EDC /* LLAudioOutPutQueue.m in Sources */,
-				044835831DF80CD900C535B6 /* OpenGLView20.mm in Sources */,
 				694F9CC11DB7B2B6008D3AA0 /* AppDelegate.m in Sources */,
 				69F1E6FA1F983C10005ADBCF /* LLOpenGlShowVC.m in Sources */,
+				69A4288A1F9DAB10002B7E70 /* KxAudioManager.m in Sources */,
+				69A428871F9D8139002B7E70 /* LLAudioQueuePlayer.m in Sources */,
 				694F9CBE1DB7B2B6008D3AA0 /* main.m in Sources */,
-				044835891DF8189D00C535B6 /* LLAudioManager.m in Sources */,
 				69F1E7021F98903C005ADBCF /* LLMediaGLView.m in Sources */,
 				040C379C1DD1CF7D00B7E2BA /* OpenglView.m in Sources */,
 				69F1E6FF1F983EEC005ADBCF /* LLMediaDecoder.m in Sources */,
