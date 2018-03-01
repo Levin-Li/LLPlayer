@@ -167,8 +167,14 @@
                 //延迟此帧需要的持续时间后显示下一帧
                 CGFloat delayTime = MIN(duration, frame.duration);
                 NSLog(@"delay %f seconds play next audio frame2",delayTime);
+                
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self startPlay];
+                    if (frame.duration < duration) {
+                        [self showVideoFramePosition:position+frame.duration duration:duration-frame.duration];
+                    }else{
+                        [self startPlay];
+                    }
+                    
                 });
             }else if (frame.timestamp < position)
             {

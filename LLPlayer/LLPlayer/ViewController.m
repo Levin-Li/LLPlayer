@@ -248,9 +248,9 @@ int sfp_refresh_thread(void *opaque){
     //SDL End----------------------
     
     //***开始音频播放
-    [self audioPcmPlay];
+//    [self audioPcmPlay];
     //***开始视频播放
-//    [self videoPlay];
+    [self videoPlay];
    
     
     
@@ -265,16 +265,20 @@ int sfp_refresh_thread(void *opaque){
         SDL_WaitEvent(&event);
         if (event.type == SFM_REFRESH_EVENT) {
             //---------------------------------
-            
+            //此处packet肯定只包含一个AVFrame 音频可能包含多个
             if(av_read_frame(pformatCtx, packet)>=0){
                 if(packet->stream_index==videoIndex){
+                    NSLog(@"pts:%lld dts:%lld",packet->pts,packet->dts);
                     ret = avcodec_decode_video2(pCodecCtx, pFrame, &got_picture, packet);
                     if(ret < 0){
                         printf("Decode Error.\n");
                         return ;
                     }
                     if(got_picture){
+                        //如果linesize大于视频的宽 则转换帧和的linesize等于视频的宽
                         sws_scale(img_convert_ctx, (const uint8_t* const*)pFrame->data, pFrame->linesize, 0, pCodecCtx->height, pFrameYUV->data, pFrameYUV->linesize);
+                       double timestamp =  av_frame_get_best_effort_timestamp(pFrame);
+                        NSLog(@"AvframePTS:%f",timestamp);
                         //SDL---------------------------
                         SDL_UpdateTexture( sdlTexture, NULL, pFrameYUV->data[0], pFrameYUV->linesize[0]);
                         //添加到纹理(此方法也可以)

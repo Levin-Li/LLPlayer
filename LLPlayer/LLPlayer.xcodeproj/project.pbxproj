@@ -17,7 +17,6 @@
 		04F590D81DB88779000E500D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590D71DB88779000E500D /* CoreGraphics.framework */; };
 		04F590DA1DB88784000E500D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590D91DB88784000E500D /* OpenGLES.framework */; };
 		04F590DC1DB8878B000E500D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F590DB1DB8878B000E500D /* QuartzCore.framework */; };
-		690437031F95A4160000A43F /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 690436FD1F95A3D30000A43F /* libSDL2.a */; };
 		694F9CBE1DB7B2B6008D3AA0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 694F9CBD1DB7B2B6008D3AA0 /* main.m */; };
 		694F9CC11DB7B2B6008D3AA0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 694F9CC01DB7B2B6008D3AA0 /* AppDelegate.m */; };
 		694F9CC41DB7B2B6008D3AA0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 694F9CC31DB7B2B6008D3AA0 /* ViewController.m */; };
@@ -39,29 +38,30 @@
 		69A92FCB1DB7B4CF006907B8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FCA1DB7B4CF006907B8 /* libz.tbd */; };
 		69A92FCD1DB7B4E7006907B8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A92FCC1DB7B4E7006907B8 /* AVFoundation.framework */; };
 		69A92FD01DB7B723006907B8 /* resource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69A92FCF1DB7B723006907B8 /* resource.bundle */; };
+		69DB389C2047B3BF00213BB1 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69DB38972047B3AC00213BB1 /* libSDL2.a */; };
 		69F1E6FA1F983C10005ADBCF /* LLOpenGlShowVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F1E6F91F983C10005ADBCF /* LLOpenGlShowVC.m */; };
 		69F1E6FF1F983EEC005ADBCF /* LLMediaDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F1E6FE1F983EEC005ADBCF /* LLMediaDecoder.m */; };
 		69F1E7021F98903C005ADBCF /* LLMediaGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F1E7011F98903C005ADBCF /* LLMediaGLView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		690436FC1F95A3D30000A43F /* PBXContainerItemProxy */ = {
+		69DB38962047B3AC00213BB1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 690436F61F95A3D20000A43F /* SDL.xcodeproj */;
+			containerPortal = 69DB38902047B3AB00213BB1 /* SDL.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = FD6526630DE8FCCB002AD96B;
 			remoteInfo = libSDL;
 		};
-		690436FE1F95A3D30000A43F /* PBXContainerItemProxy */ = {
+		69DB38982047B3AC00213BB1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 690436F61F95A3D20000A43F /* SDL.xcodeproj */;
+			containerPortal = 69DB38902047B3AB00213BB1 /* SDL.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = FAB598141BB5C1B100BE72C5;
 			remoteInfo = "libSDL-tv";
 		};
-		690437001F95A40B0000A43F /* PBXContainerItemProxy */ = {
+		69DB389A2047B3B900213BB1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 690436F61F95A3D20000A43F /* SDL.xcodeproj */;
+			containerPortal = 69DB38902047B3AB00213BB1 /* SDL.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = FD6526620DE8FCCB002AD96B;
 			remoteInfo = libSDL;
@@ -80,7 +80,6 @@
 		04F590D71DB88779000E500D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		04F590D91DB88784000E500D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		04F590DB1DB8878B000E500D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		690436F61F95A3D20000A43F /* SDL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL.xcodeproj; path = "../../../../../../Resource/SDL2-2.0.5/Xcode-iOS/SDL/SDL.xcodeproj"; sourceTree = "<group>"; };
 		694F9CB91DB7B2B6008D3AA0 /* LLPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LLPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		694F9CBD1DB7B2B6008D3AA0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		694F9CBF1DB7B2B6008D3AA0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -108,6 +107,7 @@
 		69A92FCA1DB7B4CF006907B8 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		69A92FCC1DB7B4E7006907B8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		69A92FCF1DB7B723006907B8 /* resource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = resource.bundle; sourceTree = "<group>"; };
+		69DB38902047B3AB00213BB1 /* SDL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL.xcodeproj; path = "../../../../SDL2-2.0.5/Xcode-iOS/SDL/SDL.xcodeproj"; sourceTree = "<group>"; };
 		69F1E6F81F983C10005ADBCF /* LLOpenGlShowVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLOpenGlShowVC.h; sourceTree = "<group>"; };
 		69F1E6F91F983C10005ADBCF /* LLOpenGlShowVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLOpenGlShowVC.m; sourceTree = "<group>"; };
 		69F1E6FD1F983EEC005ADBCF /* LLMediaDecoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLMediaDecoder.h; sourceTree = "<group>"; };
@@ -121,7 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				690437031F95A4160000A43F /* libSDL2.a in Frameworks */,
+				69DB389C2047B3BF00213BB1 /* libSDL2.a in Frameworks */,
 				04F590DC1DB8878B000E500D /* QuartzCore.framework in Frameworks */,
 				04F590DA1DB88784000E500D /* OpenGLES.framework in Frameworks */,
 				04F590D81DB88779000E500D /* CoreGraphics.framework in Frameworks */,
@@ -172,18 +172,9 @@
 		04F590B81DB886BE000E500D /* SDL */ = {
 			isa = PBXGroup;
 			children = (
-				690436F61F95A3D20000A43F /* SDL.xcodeproj */,
+				69DB38902047B3AB00213BB1 /* SDL.xcodeproj */,
 			);
 			path = SDL;
-			sourceTree = "<group>";
-		};
-		690436F71F95A3D20000A43F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				690436FD1F95A3D30000A43F /* libSDL2.a */,
-				690436FF1F95A3D30000A43F /* libSDL2.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		690437021F95A4160000A43F /* Frameworks */ = {
@@ -305,6 +296,15 @@
 			path = audioPlayer;
 			sourceTree = "<group>";
 		};
+		69DB38912047B3AB00213BB1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				69DB38972047B3AC00213BB1 /* libSDL2.a */,
+				69DB38992047B3AC00213BB1 /* libSDL2.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -319,7 +319,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				690437011F95A40B0000A43F /* PBXTargetDependency */,
+				69DB389B2047B3B900213BB1 /* PBXTargetDependency */,
 			);
 			name = LLPlayer;
 			productName = LLPlayer;
@@ -355,8 +355,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 690436F71F95A3D20000A43F /* Products */;
-					ProjectRef = 690436F61F95A3D20000A43F /* SDL.xcodeproj */;
+					ProductGroup = 69DB38912047B3AB00213BB1 /* Products */;
+					ProjectRef = 69DB38902047B3AB00213BB1 /* SDL.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -367,18 +367,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		690436FD1F95A3D30000A43F /* libSDL2.a */ = {
+		69DB38972047B3AC00213BB1 /* libSDL2.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libSDL2.a;
-			remoteRef = 690436FC1F95A3D30000A43F /* PBXContainerItemProxy */;
+			remoteRef = 69DB38962047B3AC00213BB1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		690436FF1F95A3D30000A43F /* libSDL2.a */ = {
+		69DB38992047B3AC00213BB1 /* libSDL2.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libSDL2.a;
-			remoteRef = 690436FE1F95A3D30000A43F /* PBXContainerItemProxy */;
+			remoteRef = 69DB38982047B3AC00213BB1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -417,10 +417,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		690437011F95A40B0000A43F /* PBXTargetDependency */ = {
+		69DB389B2047B3B900213BB1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = libSDL;
-			targetProxy = 690437001F95A40B0000A43F /* PBXContainerItemProxy */;
+			targetProxy = 69DB389A2047B3B900213BB1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

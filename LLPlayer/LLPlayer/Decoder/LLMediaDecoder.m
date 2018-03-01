@@ -243,7 +243,7 @@
                         
                         if (got_picture) {
                             
-                            //转成一帧yuv数据 此处的yuv帧只存yuv数据其它数据都不存
+                            //将yuv数据中linesiz的大小大于每一帧的实际宽度时 则转成相等
                             sws_scale(img_convert_ctx, (const uint8_t* const*)videoFrame->data, videoFrame->linesize, 0, videoCodecCtx->height, videoFrameYUV->data, videoFrameYUV->linesize);
                             //视频帧的显示时间pts
                             double timestamp = av_frame_get_best_effort_timestamp(videoFrame)*self.videoTimebase;
@@ -317,11 +317,12 @@
                             //Write PCM
                             fwrite(audioOut_buffer, 1, audio_out_buffer_size, pFile);
 #endif
-                           
+                            double audioTimeStamp = av_frame_get_best_effort_timestamp(audioFrame) * self.audioTimebase;
+                           NSLog(@"audio time stamp:%lf",audioTimeStamp);
                             LLAudioFrame *frame = [[LLAudioFrame alloc]init];
                             frame.type = LLMediaFrameTypeAudio;
                             frame.samples = [NSData dataWithBytes:audioOut_buffer length:audio_out_buffer_size];
-                            frame.timestamp = av_frame_get_best_effort_timestamp(audioFrame) * self.audioTimebase;
+                            frame.timestamp = audioTimeStamp;
                             frame.duration = av_frame_get_pkt_duration(audioFrame) * self.audioTimebase;//0.023220
                             [self.frames addObject:frame];
                             cacheDuration += frame.duration;
