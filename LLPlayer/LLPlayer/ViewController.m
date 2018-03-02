@@ -163,6 +163,10 @@ int sfp_refresh_thread(void *opaque){
     audioCodecCtx = pformatCtx->streams[audioIndex]->codec;
     audioCodec = avcodec_find_decoder(audioCodecCtx->codec_id);
     
+    //GOP大小 两个I帧直接的组包大小
+    
+    printf("GOP:%d maxBframe:%d Qmin:%d\n",pCodecCtx->gop_size,pCodecCtx->max_b_frames,pCodecCtx->qmin);
+    
     
     if(pCodec==NULL)
     {
@@ -278,7 +282,8 @@ int sfp_refresh_thread(void *opaque){
                         //如果linesize大于视频的宽 则转换帧和的linesize等于视频的宽
                         sws_scale(img_convert_ctx, (const uint8_t* const*)pFrame->data, pFrame->linesize, 0, pCodecCtx->height, pFrameYUV->data, pFrameYUV->linesize);
                        double timestamp =  av_frame_get_best_effort_timestamp(pFrame);
-                        NSLog(@"AvframePTS:%f",timestamp);
+                        
+                        NSLog(@"AvframePTS:%f %d",timestamp,pFrame->pict_type);
                         //SDL---------------------------
                         SDL_UpdateTexture( sdlTexture, NULL, pFrameYUV->data[0], pFrameYUV->linesize[0]);
                         //添加到纹理(此方法也可以)

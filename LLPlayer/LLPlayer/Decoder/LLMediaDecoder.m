@@ -17,7 +17,7 @@
 //音频
 #define MAX_AUDIO_FRAME_SIZE 192000 // 1 second of 48khz 32bit audio
 //Output PCM
-#define OUTPUT_PCM 1
+#define OUTPUT_PCM 0
 
 @interface LLMediaFrame()
 @property (nonatomic, assign) LLMediaFrameType type;
