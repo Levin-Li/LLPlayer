@@ -66,7 +66,9 @@ int flush_encoder(AVFormatContext *fmt_ctx,unsigned int stream_index){
     }
     return ret;
 }
-
+- (IBAction)startPushSteam:(UIButton *)sender {
+}
+//将yuv转H264
 -(void)testYuvConvertH264
 {
     AVFormatContext* pFormatCtx;
@@ -87,7 +89,7 @@ int flush_encoder(AVFormatContext *fmt_ctx,unsigned int stream_index){
     int in_w=320,in_h=180;                              //Input data's width and height
     int framenum=50;                                   //Frames to encode
     
-    const char* out_file = "/Users/luoluo/Desktop/videoFiles/ds.264";
+    const char* out_file = "/Users/luoluo/Desktop/videoFiles/Test320X180.264";
 //    const char* out_file = [[NSTemporaryDirectory() stringByAppendingPathComponent:@"dash.h264"] cStringUsingEncoding:NSUTF8StringEncoding];
 //     const char* out_file = [[NSTemporaryDirectory() stringByAppendingPathComponent:@"dsss_480x272的副本.264"] cStringUsingEncoding:NSUTF8StringEncoding];
     av_register_all();
@@ -98,15 +100,6 @@ int flush_encoder(AVFormatContext *fmt_ctx,unsigned int stream_index){
     
     //Guess Format
     outputfmt = av_guess_format(NULL, out_file, NULL);
-    
-//    if (outputfmt == NULL) {
-//        AVOutputFormat ouputFormat0;
-//        ouputFormat0.name = "h264";
-//        ouputFormat0.mime_type = "video/h264";
-//        ouputFormat0.video_codec = AV_CODEC_ID_H264;
-//        outputfmt = &ouputFormat0;
-//        NSLog(@"use custom name.");
-//    }
     pFormatCtx->oformat = outputfmt;
     
     //Method 2.

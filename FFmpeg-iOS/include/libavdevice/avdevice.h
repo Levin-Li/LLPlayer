@@ -28,21 +28,19 @@
  */
 
 /**
- * @defgroup lavd libavdevice
- * Special devices muxing/demuxing library.
- *
+ * @defgroup lavd Special devices muxing/demuxing library
+ * @{
  * Libavdevice is a complementary library to @ref libavf "libavformat". It
  * provides various "special" platform-specific muxers and demuxers, e.g. for
  * grabbing devices, audio capture and playback etc. As a consequence, the
  * (de)muxers in libavdevice are of the AVFMT_NOFILE type (they use their own
  * I/O functions). The filename passed to avformat_open_input() often does not
  * refer to an actually existing file, but has some special device-specific
- * meaning - e.g. for xcbgrab it is the display name.
+ * meaning - e.g. for x11grab it is the display name.
  *
  * To use libavdevice, simply call avdevice_register_all() to register all
  * compiled muxers and demuxers. They all use standard libavformat API.
- *
- * @{
+ * @}
  */
 
 #include "libavutil/log.h"
@@ -66,30 +64,8 @@ const char *avdevice_configuration(void);
 const char *avdevice_license(void);
 
 /**
- * Iterate over all registered output devices.
- *
- * @param opaque a pointer where libavdevice will store the iteration state. Must
- *               point to NULL to start the iteration.
- *
- * @return the next registered output device or NULL when the iteration is
- *         finished
- */
-const AVOutputFormat *av_outdev_iterate(void **opaque);
-
-/**
- * Iterate over all registered input devices.
- *
- * @param opaque a pointer where libavdevice will store the iteration state. Must
- *               point to NULL to start the iteration.
- *
- * @return the next registered input device or NULL when the iteration is
- *         finished
- */
-const AVInputFormat *av_indev_iterate(void **opaque);
-
-#if FF_API_NEXT
-/**
  * Initialize libavdevice and register all the input and output devices.
+ * @warning This function is not thread safe.
  */
 void avdevice_register_all(void);
 
@@ -100,7 +76,6 @@ void avdevice_register_all(void);
  * if d is non-NULL, returns the next registered input audio/video device after d
  * or NULL if d is the last one.
  */
-attribute_deprecated
 AVInputFormat *av_input_audio_device_next(AVInputFormat  *d);
 
 /**
@@ -110,7 +85,6 @@ AVInputFormat *av_input_audio_device_next(AVInputFormat  *d);
  * if d is non-NULL, returns the next registered input audio/video device after d
  * or NULL if d is the last one.
  */
-attribute_deprecated
 AVInputFormat *av_input_video_device_next(AVInputFormat  *d);
 
 /**
@@ -120,7 +94,6 @@ AVInputFormat *av_input_video_device_next(AVInputFormat  *d);
  * if d is non-NULL, returns the next registered output audio/video device after d
  * or NULL if d is the last one.
  */
-attribute_deprecated
 AVOutputFormat *av_output_audio_device_next(AVOutputFormat *d);
 
 /**
@@ -130,9 +103,7 @@ AVOutputFormat *av_output_audio_device_next(AVOutputFormat *d);
  * if d is non-NULL, returns the next registered output audio/video device after d
  * or NULL if d is the last one.
  */
-attribute_deprecated
 AVOutputFormat *av_output_video_device_next(AVOutputFormat *d);
-#endif
 
 typedef struct AVDeviceRect {
     int x;      /**< x coordinate of top left corner */
@@ -534,9 +505,5 @@ int avdevice_list_input_sources(struct AVInputFormat *device, const char *device
                                 AVDictionary *device_options, AVDeviceInfoList **device_list);
 int avdevice_list_output_sinks(struct AVOutputFormat *device, const char *device_name,
                                AVDictionary *device_options, AVDeviceInfoList **device_list);
-
-/**
- * @}
- */
 
 #endif /* AVDEVICE_AVDEVICE_H */

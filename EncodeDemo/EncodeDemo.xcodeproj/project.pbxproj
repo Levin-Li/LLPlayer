@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		696F6D3F2060E60D00BA62A1 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696F6D3E2060E60D00BA62A1 /* SecondViewController.m */; };
 		6987EC3F205A65B700C3E27E /* libx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6987EC3E205A65B700C3E27E /* libx264.a */; };
 		6987EC48205A65C700C3E27E /* libpostproc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6987EC40205A65C600C3E27E /* libpostproc.a */; };
 		6987EC49205A65C700C3E27E /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6987EC41205A65C600C3E27E /* libavcodec.a */; };
@@ -35,6 +36,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		696F6D3D2060E60D00BA62A1 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		696F6D3E2060E60D00BA62A1 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		6987EC3E205A65B700C3E27E /* libx264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libx264.a; path = "../../../fat-x264/lib/libx264.a"; sourceTree = "<group>"; };
 		6987EC40205A65C600C3E27E /* libpostproc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpostproc.a; path = "../../../FFmpeg-iOS/lib/libpostproc.a"; sourceTree = "<group>"; };
 		6987EC41205A65C600C3E27E /* libavcodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavcodec.a; path = "../../../FFmpeg-iOS/lib/libavcodec.a"; sourceTree = "<group>"; };
@@ -71,24 +74,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6987EC51205A6A0300C3E27E /* AudioToolbox.framework in Frameworks */,
+				69891A0F204957FB00C0EBEB /* libiconv.2.4.0.tbd in Frameworks */,
+				69891A0D204957EC00C0EBEB /* libz.1.2.5.tbd in Frameworks */,
+				69891A0B204957CD00C0EBEB /* libbz2.1.0.tbd in Frameworks */,
+				698919EF204948FB00C0EBEB /* libiconv.tbd in Frameworks */,
+				698919ED204948F200C0EBEB /* libbz2.tbd in Frameworks */,
+				698919EB20492AF600C0EBEB /* libz.tbd in Frameworks */,
 				6987EC4D205A65C700C3E27E /* libavutil.a in Frameworks */,
 				6987EC4A205A65C700C3E27E /* libswscale.a in Frameworks */,
-				69891A0F204957FB00C0EBEB /* libiconv.2.4.0.tbd in Frameworks */,
 				6987EC4B205A65C700C3E27E /* libavfilter.a in Frameworks */,
-				69891A0D204957EC00C0EBEB /* libz.1.2.5.tbd in Frameworks */,
 				6987EC3F205A65B700C3E27E /* libx264.a in Frameworks */,
-				69891A0B204957CD00C0EBEB /* libbz2.1.0.tbd in Frameworks */,
-				69891A09204957B700C0EBEB /* CoreMedia.framework in Frameworks */,
 				6987EC4E205A65C700C3E27E /* libswresample.a in Frameworks */,
-				69891A07204957AE00C0EBEB /* VideoToolbox.framework in Frameworks */,
-				698919EF204948FB00C0EBEB /* libiconv.tbd in Frameworks */,
 				6987EC4C205A65C700C3E27E /* libavformat.a in Frameworks */,
 				6987EC48205A65C700C3E27E /* libpostproc.a in Frameworks */,
 				6987EC49205A65C700C3E27E /* libavcodec.a in Frameworks */,
-				698919ED204948F200C0EBEB /* libbz2.tbd in Frameworks */,
-				698919EB20492AF600C0EBEB /* libz.tbd in Frameworks */,
 				6987EC4F205A65C700C3E27E /* libavdevice.a in Frameworks */,
+				6987EC51205A6A0300C3E27E /* AudioToolbox.framework in Frameworks */,
+				69891A09204957B700C0EBEB /* CoreMedia.framework in Frameworks */,
+				69891A07204957AE00C0EBEB /* VideoToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +140,8 @@
 				698919BD2049254B00C0EBEB /* AppDelegate.m */,
 				698919BF2049254B00C0EBEB /* ViewController.h */,
 				698919C02049254B00C0EBEB /* ViewController.m */,
+				696F6D3D2060E60D00BA62A1 /* SecondViewController.h */,
+				696F6D3E2060E60D00BA62A1 /* SecondViewController.m */,
 				698919C22049254B00C0EBEB /* Main.storyboard */,
 				698919C52049254B00C0EBEB /* Assets.xcassets */,
 				698919C72049254B00C0EBEB /* LaunchScreen.storyboard */,
@@ -234,6 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				696F6D3F2060E60D00BA62A1 /* SecondViewController.m in Sources */,
 				698919C12049254B00C0EBEB /* ViewController.m in Sources */,
 				698919CC2049254B00C0EBEB /* main.m in Sources */,
 				698919BE2049254B00C0EBEB /* AppDelegate.m in Sources */,

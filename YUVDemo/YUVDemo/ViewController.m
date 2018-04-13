@@ -64,6 +64,8 @@ int simplest_yuv420_border(char *url, int w, int h,int border,int num){
     
     return 0;
 }
+- (IBAction)startPUshAction:(UIButton *)sender {
+}
 
 //亮度减半 将Y分量的值减少一半即可
 int simplest_yuv420_halfy(char *url, int w, int h,int num){

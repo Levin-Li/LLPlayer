@@ -125,19 +125,20 @@ int sfp_refresh_thread(void *opaque){
     av_register_all();
     avformat_network_init();
     pformatCtx = avformat_alloc_context();
-    // open format file to formatCtx
+//    pformatCtx->interrupt_callback  超时回调 反回1表示确定打断
+    // 构造AVStream结构体
     if (avformat_open_input(&pformatCtx,[input_nsstr UTF8String],NULL,NULL) != 0) {
         printf("couldn't open input stream.\n");
         return;
     }
 //    av_dump_format(pformatCtx, 0, [input_nsstr UTF8String], 0);
-    
+    //此接口可通过传递参数probesize和max_analyze_duration来控制分析数据大小和分析最大时间长度
     if (avformat_find_stream_info(pformatCtx,NULL) < 0) {
         printf("couldn't find stream information.\n");
         return;
     }
     
-    
+
     
     videoIndex = -1;
     for (int i= 0; i<pformatCtx->nb_streams; i++) {
@@ -164,9 +165,7 @@ int sfp_refresh_thread(void *opaque){
     audioCodec = avcodec_find_decoder(audioCodecCtx->codec_id);
     
     //GOP大小 两个I帧直接的组包大小
-    
     printf("GOP:%d maxBframe:%d Qmin:%d\n",pCodecCtx->gop_size,pCodecCtx->max_b_frames,pCodecCtx->qmin);
-    
     
     if(pCodec==NULL)
     {
@@ -211,6 +210,7 @@ int sfp_refresh_thread(void *opaque){
     av_dump_format(pformatCtx, 0, [input_nsstr UTF8String], 0);
     
     printf("-------------------------------------------------\n");
+    NSLog(@"videoFormat=%d yuv420=%d",pCodecCtx->pix_fmt,PIX_FMT_YUV420P);
     //转格式为PIX_FMT_YUV420P
     img_convert_ctx = sws_getContext(pCodecCtx->width, pCodecCtx->height, pCodecCtx->pix_fmt,
                                      pCodecCtx->width, pCodecCtx->height, PIX_FMT_YUV420P, SWS_BICUBIC, NULL, NULL, NULL);//转码的信息
@@ -252,9 +252,10 @@ int sfp_refresh_thread(void *opaque){
     //SDL End----------------------
     
     //***开始音频播放
-//    [self audioPcmPlay];
+//    [self audioPcmPlay];
+    [self audioPcmPlay];
     //***开始视频播放
-    [self videoPlay];
+//    [self videoPlay];
    
     
     
@@ -361,7 +362,7 @@ int sfp_refresh_thread(void *opaque){
     audioFormat.mBytesPerPacket = audioFormat.mBytesPerFrame = (audioFormat.mBitsPerChannel / 8) * audioFormat.mChannelsPerFrame;
     audioFormat.mFramesPerPacket = 1;
     NSLog(@"out_sample_rate=%d out_channels=%d out_buffer_size=%d ByteN=%d",out_sample_rate,out_channels,out_buffer_size,ByteN);
-    NSLog(@"channels=%d nb_samples=%d sample_fmt=%d",audioCodecCtx->channels,audioFrame->nb_samples,audioCodecCtx->sample_fmt);
+    NSLog(@"channels=%d nb_samples=%d sample_fmt=%d AV_SAMPLE_FMT_S16=%d",audioCodecCtx->channels,audioFrame->nb_samples,audioCodecCtx->sample_fmt,AV_SAMPLE_FMT_S16);
     
 //    [_audioPcm registAudio:audioFormat];
     

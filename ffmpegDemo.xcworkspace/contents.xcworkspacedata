@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:filterDemo/filterDemo.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PushFFmpeg3_4Demo/PushFFmpeg3_4Demo.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:EncodeDemo/EncodeDemo.xcodeproj">
    </FileRef>
    <FileRef
